@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Media;
 
 namespace Ex2
 {
@@ -25,9 +25,8 @@ namespace Ex2
         public MainWindow()
         {
             InitializeComponent();
-           // SoundPlayer player = new SoundPlayer(Krewella - Enjoy The Ride(Vicetone Remix));
-            //player.Load();
-            //player.Play();
+            SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
+            MusicPlayer.Play();
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
