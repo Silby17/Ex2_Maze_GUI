@@ -1,0 +1,28 @@
+﻿<Window x:Class="Ex2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ex2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" >
+    <Window.Background>
+        <ImageBrush ImageSource="Traquair_House_Maze.jpg"/>
+    </Window.Background>
+    <Grid>
+        <Button Content="Settings"
+        Width="100"
+        Height="40"
+        Click="Settings_Click" Margin="84,10,333,269" />
+        
+        <Button Content="Play"
+        Width="100"
+        Height="40"
+        Click="Play_Click" Margin="189,10,228,269" />
+        
+        <Button Content="Multiplayer"
+        Width="100"
+        Height="40"
+        Click="Multiplayer_Click" Margin="294,10,123,269" />
+    </Grid>
+</Window>
