@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Ex2
+namespace Ex2_Maze
 {
     /// <summary>
     /// Interaction logic for Settings.xaml
@@ -21,7 +21,7 @@ namespace Ex2
     {
         public Settings()
         {
-           // InitializeComponent();
+            InitializeComponent();
         }
     }
 }

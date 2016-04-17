@@ -129,6 +129,7 @@
   <ItemGroup>
     <Content Include="Krewella - Enjoy The Ride %28Vicetone Remix%29.mp3" />
     <Content Include="Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav" />
+    <Resource Include="settings.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

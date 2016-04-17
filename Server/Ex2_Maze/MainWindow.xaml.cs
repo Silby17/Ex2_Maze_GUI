@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
 
-namespace Ex2
+namespace Ex2_Maze
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -32,7 +32,7 @@ namespace Ex2
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Settings settingsWindow = new Settings();
-            settingsWindow.ShowDialog();
+            settingsWindow.Show();
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
