@@ -21,7 +21,7 @@ namespace Ex2_Maze
     {
         public Settings()
         {
-           // InitializeComponent();
+            InitializeComponent();
         }
     }
 }
