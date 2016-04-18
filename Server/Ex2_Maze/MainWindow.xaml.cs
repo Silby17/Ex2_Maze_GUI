@@ -21,11 +21,13 @@ namespace Ex2_Maze
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        ViewModel vm;   
         public MainWindow()
         {
+            this.vm = new ViewModel(new Model(new TelnetClient()));
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            DataContext = vm;
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
             //MusicPlayer.Play();
         }
@@ -33,7 +35,7 @@ namespace Ex2_Maze
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Settings settingsWindow = new Settings();
-            settingsWindow.Show();
+            settingsWindow.ShowDialog();
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
