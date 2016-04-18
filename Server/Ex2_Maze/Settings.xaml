@@ -14,13 +14,14 @@
        
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Orientation="Horizontal" Width="75">
-            <TextBox Text="IP           "/>
-            <Button>OK</Button>
+            <TextBlock Margin="5,2" MinWidth="45" Text="IP" 
+                   Foreground="LightSteelBlue" />
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
                 Orientation="Horizontal" Width="75">
-            <TextBox Text="Port       "/>
-            <Button>OK</Button>
+            <TextBlock Margin="5,2" MinWidth="45" Text="Port" 
+                   Foreground="LightSteelBlue" />
+            <Button>saveConnect</Button>
         </WrapPanel>
     </WrapPanel>
 </Window>
