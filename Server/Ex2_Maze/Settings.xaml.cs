@@ -20,25 +20,21 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Settings : Window
     {
-        private string IP;
-        private string PORT;
+        private string sIP;
+        private string sPORT;
 
         public Settings()
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            ReadFile();
+            ReadDefaultSettings();
             InitializeComponent();
         }
 
 
-        public void ReadFile()
+        public void ReadDefaultSettings()
         {
-            string direc = Directory.GetCurrentDirectory();
-            direc += "\\connectionInfo.txt";
-            
-            string[] lines = System.IO.File.ReadAllLines(direc);
-            this.IP = lines[0];
-            this.PORT = lines[1];
+            this.sPORT =(System.Configuration.ConfigurationManager.AppSettings["Port"]);
+            this.sIP = (System.Configuration.ConfigurationManager.AppSettings["IP"]);
         }
     }
 }
