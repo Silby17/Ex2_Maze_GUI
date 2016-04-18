@@ -5,23 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
-        Title="Window2" Height="300" Width="300">
+        Title="Settings" Height="177" Width="229">
     <Window.Background>
         <ImageBrush ImageSource="settings.jpg"/>
     </Window.Background>
-    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
+    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" 
                 Orientation="Vertical">
-       
-        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Orientation="Horizontal" Width="75">
-            <TextBlock Margin="5,2" MinWidth="45" Text="IP" 
-                   Foreground="LightSteelBlue" />
-        </WrapPanel>
-        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Orientation="Horizontal" Width="75">
-            <TextBlock Margin="5,2" MinWidth="45" Text="Port" 
-                   Foreground="LightSteelBlue" />
-            <Button>saveConnect</Button>
-        </WrapPanel>
+        <TextBox
+                Text="IP" Margin="5,2" MinWidth="100" MinHeight="20" FontSize="15"/>
+        <TextBox Margin="5,2" MinWidth="70" Text="Port" MinHeight="20" FontSize="15" />
+        <Button Content="Connect" HorizontalAlignment="Center" MinHeight="20" FontSize="15"/>
     </WrapPanel>
 </Window>

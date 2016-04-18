@@ -21,6 +21,7 @@ namespace Ex2_Maze
     {
         public Settings()
         {
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
         }
     }
