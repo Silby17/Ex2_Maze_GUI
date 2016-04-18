@@ -27,6 +27,9 @@ namespace Ex2_Maze
 
         }
 
-        
+        public void Connect(string IP, string port)
+        {
+            this.model.Connect(IP, Int32.Parse(port));
+        }
     }
 }

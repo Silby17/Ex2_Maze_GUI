@@ -21,13 +21,19 @@ namespace Ex2_Maze
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string dIP;
+        private string dPORT;
         ViewModel vm;   
+
+
         public MainWindow()
         {
+            GetConnectionInfo();
             this.vm = new ViewModel(new Model(new TelnetClient()));
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             DataContext = vm;
+            vm.Connect(dIP, dPORT);
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
             //MusicPlayer.Play();
         }
@@ -48,6 +54,12 @@ namespace Ex2_Maze
         {
            Multiplayer multiplayerWindow  = new Multiplayer();
             //multiplayerWindow.Show();
+        }
+
+        private void GetConnectionInfo()
+        {
+            this.dPORT = (System.Configuration.ConfigurationManager.AppSettings["Port"]);
+            this.dIP = (System.Configuration.ConfigurationManager.AppSettings["IP"]);
         }
     }
 }
