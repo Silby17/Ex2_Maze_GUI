@@ -28,8 +28,9 @@ namespace Ex2_Maze
         {
             Console.WriteLine("Save clicked");
             string ip = lblIP.Text.ToString();
-            string port = lblIP.Text.ToString();
-            
+            string port = lblPORT.Text.ToString();
+            mainWindow.ChangeConnectionSettings(ip, port);
+            this.Close();
         }
 
 
@@ -37,6 +38,7 @@ namespace Ex2_Maze
         {
             Console.WriteLine("Cancle CLicked");
             string g = lblIP.Text.ToString();
+            this.Close();
         }
 
         public void ReadDefaultSettings()

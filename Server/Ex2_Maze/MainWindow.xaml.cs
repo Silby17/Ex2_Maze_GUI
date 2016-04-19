@@ -68,7 +68,7 @@ namespace Ex2_Maze
             this.dIP = (System.Configuration.ConfigurationManager.AppSettings["IP"]);
         }
 
-        private void ChangeConnectionSettings(string ip, string port)
+        public void ChangeConnectionSettings(string ip, string port)
         {
             this.dIP = ip;
             this.dPORT = port;
