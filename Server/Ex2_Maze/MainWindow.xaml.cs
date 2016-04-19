@@ -42,6 +42,12 @@ namespace Ex2_Maze
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
         }
 
+
+        /// <summary>
+        /// Method that will handle and the click of the settings button
+        /// </summary>
+        /// <param name="sender">Who sent the click</param>
+        /// <param name="e">and params to be passed</param>
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Settings settingsWindow = new Settings(this);
