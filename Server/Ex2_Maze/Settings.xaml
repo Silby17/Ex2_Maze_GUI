@@ -11,13 +11,13 @@
     </Window.Background>
     <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" 
                 Orientation="Vertical">
-        <TextBox
+        <TextBox x:Name="lblIP"
                 Text="IP" Margin="5,2" MinWidth="100" MinHeight="20" FontSize="15"/>
-        <TextBox  Margin="5,2" MinWidth="70" Text="Port" MinHeight="20" FontSize="15" />
+        <TextBox x:Name="lblPORT"  Margin="5,2" MinWidth="70" Text="Port" MinHeight="20" FontSize="15" />
         
         <WrapPanel HorizontalAlignment="Center" >
-            <Button Content="Save" HorizontalAlignment="Center" MinHeight="20" MinWidth="50"/>
-            <Button Content="Cancel" HorizontalAlignment="Center" MinWidth="50"/>
+            <Button Content="Save" Click="Save_Click" HorizontalAlignment="Center" MinHeight="20" MinWidth="50"/>
+            <Button Content="Cancel" Click="Cancel_Click" HorizontalAlignment="Center" MinWidth="50"/>
         </WrapPanel>
     </WrapPanel>
 </Window>

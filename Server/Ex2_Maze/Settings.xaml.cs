@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace Ex2_Maze
 {
@@ -22,14 +11,33 @@ namespace Ex2_Maze
     {
         private string sIP;
         private string sPORT;
+        private MainWindow mainWindow;
 
-        public Settings()
+        public Settings(MainWindow mw)
         {
+            this.mainWindow = mw;
+            
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             ReadDefaultSettings();
             InitializeComponent();
+            lblIP.Text = mw.dIP.ToString();
+            lblPORT.Text = mw.dPORT;
         }
 
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Save clicked");
+            string ip = lblIP.Text.ToString();
+            string port = lblIP.Text.ToString();
+            
+        }
+
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Cancle CLicked");
+            string g = lblIP.Text.ToString();
+        }
 
         public void ReadDefaultSettings()
         {
