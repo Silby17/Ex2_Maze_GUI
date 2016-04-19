@@ -9,8 +9,9 @@ namespace Ex2_Maze
     public interface ITelnetClient
     {
         void Connect(string ip, int port);
-        void Write(string commnad);
-        string Read();
+        void Start();
+        void Send(string command);
+        void Receive();
         void Disconnect();
     }
 }

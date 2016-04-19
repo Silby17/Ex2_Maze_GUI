@@ -24,7 +24,7 @@ namespace Ex2_Maze
     {
         public string dIP{get; set;}
         public string dPORT { get; set; }
-        ViewModel vm;   
+        public ViewModel vm;   
 
 
         public MainWindow()
@@ -57,7 +57,7 @@ namespace Ex2_Maze
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             //this.Hide();
-            Play playerWindow = new Play();
+            Play playerWindow = new Play(this);
             playerWindow.ShowDialog();
         }
 
@@ -79,6 +79,7 @@ namespace Ex2_Maze
             this.dIP = ip;
             this.dPORT = port;
             vm.Connect(ip, port);
+            
         }
     }
 }

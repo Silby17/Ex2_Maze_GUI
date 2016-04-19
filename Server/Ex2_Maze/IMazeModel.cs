@@ -12,5 +12,6 @@ namespace Ex2_Maze
         void Connect(string ip, int port);
         void Disconnect();
         void Start();
+        void Send(string str);
     }
 }

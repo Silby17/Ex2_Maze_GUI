@@ -19,10 +19,18 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Play : Window
     {
-        public Play()
+        private string gen = "1 Maze ";
+        private Random rand;
+
+        public Play(MainWindow mw)
         {
+            this.rand = new Random();
+            int type = rand.Next(0, 2);
+            gen += type.ToString();
+
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            mw.vm.Command(gen);
         }
     }
 }

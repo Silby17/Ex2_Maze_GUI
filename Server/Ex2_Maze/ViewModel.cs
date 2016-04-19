@@ -21,6 +21,11 @@ namespace Ex2_Maze
             };
         }
 
+        public void Command(string s)
+        {
+            model.Send(s);
+        }
+
 
         public void PublishEvent(string propName)
         {
