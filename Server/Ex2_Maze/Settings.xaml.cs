@@ -24,6 +24,12 @@ namespace Ex2_Maze
             lblPORT.Text = mw.dPORT;
         }
 
+
+        /// <summary>
+        /// Method that will deal with the click on the save button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Save clicked");
