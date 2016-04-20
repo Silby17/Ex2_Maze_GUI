@@ -18,7 +18,6 @@ namespace Ex1_Maze
         private Node<T> end;
         private int type { get; set; }
 
-
         /// <summary>
         /// Constructor for the Maze that recevies its sizes</summary>
         /// <param Name="height">Height of the Maze</param>
