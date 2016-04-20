@@ -13,6 +13,8 @@ namespace Ex1_Maze
         public JPosition End { get; set; }
         private bool SOLVED = false;
 
+        public GeneralMaze() { }
+
         /// <summary>
         /// This is the constructor Method
         /// </summary>
