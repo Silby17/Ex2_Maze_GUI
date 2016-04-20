@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="IMazeModel.cs" />
+    <Compile Include="ITelnetClient.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Multiplayer.xaml.cs">
       <DependentUpon>Multiplayer.xaml</DependentUpon>
     </Compile>
@@ -64,6 +68,9 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TelnetClient.cs" />
+    <Compile Include="View.cs" />
+    <Compile Include="ViewModel.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -127,6 +134,8 @@
     <Resource Include="Traquair_House_Maze.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="sovtoda.wav" />
+    <Resource Include="connectionInfo.txt" />
     <Content Include="Krewella - Enjoy The Ride %28Vicetone Remix%29.mp3" />
     <Content Include="Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav" />
     <Resource Include="settings.jpg" />

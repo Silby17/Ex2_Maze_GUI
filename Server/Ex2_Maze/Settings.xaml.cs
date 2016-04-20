@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace Ex2_Maze
 {
@@ -19,9 +9,48 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Settings : Window
     {
-        public Settings()
+        private string sIP;
+        private string sPORT;
+        private MainWindow mainWindow;
+
+        public Settings(MainWindow mw)
         {
+            this.mainWindow = mw;
+            
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            ReadDefaultSettings();
             InitializeComponent();
+            lblIP.Text = mw.dIP.ToString();
+            lblPORT.Text = mw.dPORT;
+        }
+
+
+        /// <summary>
+        /// Method that will deal with the click on the save button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Save clicked");
+            string ip = lblIP.Text.ToString();
+            string port = lblPORT.Text.ToString();
+            mainWindow.ChangeConnectionSettings(ip, port);
+            this.Close();
+        }
+
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Cancle CLicked");
+            string g = lblIP.Text.ToString();
+            this.Close();
+        }
+
+        public void ReadDefaultSettings()
+        {
+            this.sPORT =(System.Configuration.ConfigurationManager.AppSettings["Port"]);
+            this.sIP = (System.Configuration.ConfigurationManager.AppSettings["IP"]);
         }
     }
 }

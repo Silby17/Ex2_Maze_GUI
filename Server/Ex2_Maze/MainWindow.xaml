@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" >
+        Title="Maze Game" Height="350" Width="525" >
     <Window.Background>
         <ImageBrush ImageSource="Traquair_House_Maze.jpg"/>
     </Window.Background>
@@ -13,16 +13,17 @@
         <Button Content="Settings"
         Width="100"
         Height="40"
-        Click="Settings_Click" Margin="84,10,333,269" />
+        Click="Settings_Click" Margin="84,10,333,269" TextOptions.TextHintingMode="Fixed" HorizontalAlignment="Center" VerticalAlignment="Center" />
         
         <Button Content="Play"
         Width="100"
         Height="40"
-        Click="Play_Click" Margin="189,10,228,269" />
+        Click="Play_Click" Margin="189,10,228,269" HorizontalAlignment="Center" VerticalAlignment="Center" />
         
         <Button Content="Multiplayer"
         Width="100"
         Height="40"
-        Click="Multiplayer_Click" Margin="294,10,123,269" />
+        Click="Multiplayer_Click" Margin="294,10,123,269" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10">Created by: Yossi Silberhaft and Nava Shemoul</Label>
     </Grid> 
 </Window>

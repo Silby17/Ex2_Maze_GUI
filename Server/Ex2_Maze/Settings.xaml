@@ -5,23 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
-        Title="Window2" Height="300" Width="300">
+        Title="Settings" Height="217" Width="229">
     <Window.Background>
         <ImageBrush ImageSource="settings.jpg"/>
     </Window.Background>
-    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
+    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" 
                 Orientation="Vertical">
-       
-        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Orientation="Horizontal" Width="75">
-            <TextBlock Margin="5,2" MinWidth="45" Text="IP" 
-                   Foreground="LightSteelBlue" />
-        </WrapPanel>
-        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Orientation="Horizontal" Width="75">
-            <TextBlock Margin="5,2" MinWidth="45" Text="Port" 
-                   Foreground="LightSteelBlue" />
-            <Button>saveConnect</Button>
+        <TextBox x:Name="lblIP"
+                Text="IP" Margin="5,2" MinWidth="100" MinHeight="20" FontSize="15"/>
+        <TextBox x:Name="lblPORT"  Margin="5,2" MinWidth="70" Text="Port" MinHeight="20" FontSize="15" />
+        
+        <WrapPanel HorizontalAlignment="Center" >
+            <Button Content="Save" Click="Save_Click" HorizontalAlignment="Center" MinHeight="20" MinWidth="50"/>
+            <Button Content="Cancel" Click="Cancel_Click" HorizontalAlignment="Center" MinWidth="50"/>
         </WrapPanel>
     </WrapPanel>
 </Window>
