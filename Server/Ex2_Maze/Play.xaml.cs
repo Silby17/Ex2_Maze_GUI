@@ -38,12 +38,22 @@ namespace Ex2_Maze
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            
+            //TODO to reload the window
+            MessageBoxResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+            
         }
         
         private void Suggestion_Click(object sender, RoutedEventArgs e)
