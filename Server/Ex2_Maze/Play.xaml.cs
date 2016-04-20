@@ -38,12 +38,19 @@ namespace Ex2_Maze
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            //TODO to reload the window
-            MessageBoxResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+           
+            MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
             {
-                this.Close();
+                //close window
+                
             }
+            //TODO to reload the window
+            else
+            {
+              
+            }
+
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -52,6 +59,7 @@ namespace Ex2_Maze
             if (result == MessageBoxResult.Yes)
             {
                 this.Close();
+
             }
             
         }
