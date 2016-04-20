@@ -24,25 +24,18 @@ namespace Ex2_Maze
             this.IP = IPAddress.Parse(ip);
             this.ipep = new IPEndPoint(IP, PORT);
             this.server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
             //Try to connect to the server
             try
             {
                 server.Connect(ipep);
                 Console.WriteLine("Connected to Server");
-            }
+                Read();
+                }
             catch (SocketException e) { Console.WriteLine("Unable to connect to server." + e.ToString()); }
         }
 
-        
-
-        /// <summary>
-        /// This will start the Communication with the Server</summary>
-        public void Start()
-        {
-            this.receiverThread = new Thread(Receive);
-            receiverThread.Start();
-        }
+       public Socket GetServer()
+        { return this.server; }
 
 
         /// <summary>
@@ -50,36 +43,35 @@ namespace Ex2_Maze
         /// <param name="command">The command to send to server</param>
         public void Send(string command)
         {
-           // server.Send(Encoding.ASCII.GetBytes(command));
+            server.Send(Encoding.ASCII.GetBytes(command));
         }
 
-        /// <summary>
-        /// Starts the Thread that will be in charge of incomming Data</summary>
-        public void Receive()
+
+        public string Read()
         {
-            while (true)
+            try
             {
-                try
-                {
-                    byte[] data = new byte[1024];
-                    int recv = server.Receive(data);
-                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
-                    if (stringData == "exit") break;
-                    this.generated = stringData;
-                }
-                catch (SocketException e)
-                {
-                    Console.WriteLine("Connection with Server has been Terminated: Server Shut Down.");
-                    server.Shutdown(SocketShutdown.Both);
-                    server.Close();
-                }
+                byte[] data = new byte[1024];
+                int recv = server.Receive(data);
+                string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                return stringData;
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("Connection with Server has been Terminated: Server Shut Down.");
+                server.Shutdown(SocketShutdown.Both);
+                server.Close();
+                return null;
             }
         }
+
 
         public void Disconnect()
         {
             server.Shutdown(SocketShutdown.Both);
             server.Close();
         }
+
+        
     }
 }

@@ -38,8 +38,8 @@ namespace Ex2_Maze
             musicPath += "Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav";
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@musicPath);
             //vm.Connect(dIP, dPORT);
-            SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
-            MusicPlayer.Play();
+            //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
+            //MusicPlayer.Play();
         }
 
 

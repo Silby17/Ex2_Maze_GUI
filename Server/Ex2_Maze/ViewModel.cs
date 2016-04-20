@@ -15,7 +15,7 @@ namespace Ex2_Maze
         public ViewModel(IMazeModel m)
         {
             this.model = m;
-            m.PropertyChanged += delegate (Object seder, PropertyChangedEventArgs e)
+            m.PropertyChanged += delegate (object seder, PropertyChangedEventArgs e)
             {
                 PublishEvent("VM_" + e.PropertyName);
             };
@@ -24,6 +24,12 @@ namespace Ex2_Maze
         public void Command(string s)
         {
             model.Send(s);
+        }
+
+
+        public string VW_Generate
+        {
+            get { return model.Generate; }
         }
 
 

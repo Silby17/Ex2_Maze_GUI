@@ -22,23 +22,20 @@ namespace Ex2_Maze
     {
         private string gen = "1 Maze ";
         private Random rand;
+        MainWindow mainWin;
 
         public Play(MainWindow mw)
         {
-            this.rand = new Random();
-            int type = rand.Next(0, 2);
-            gen += type.ToString();
-
+            this.mainWin = mw;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            mw.vm.Command(gen);
-            SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
-            MusicPlayer.Play();
+            
+            //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
+            //MusicPlayer.Play();
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-           
             MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
@@ -46,9 +43,12 @@ namespace Ex2_Maze
                 
             }
             //TODO to reload the window
-            else
+            else if(result == MessageBoxResult.Yes)
             {
-              
+                this.rand = new Random();
+                int type = rand.Next(0, 2);
+                gen += type.ToString();
+                this.mainWin.vm.Command(gen);
             }
 
         }
