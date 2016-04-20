@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
-        Title="Settings" Height="217" Width="229">
+        Title="Settings" Height="222" Width="210">
     <Window.Background>
         <ImageBrush ImageSource="settings.jpg"/>
     </Window.Background>
@@ -14,7 +14,7 @@
         <TextBox x:Name="lblIP"
                 Text="IP" Margin="5,2" MinWidth="100" MinHeight="20" FontSize="15"/>
         <TextBox x:Name="lblPORT"  Margin="5,2" MinWidth="70" Text="Port" MinHeight="20" FontSize="15" />
-        
+
         <WrapPanel HorizontalAlignment="Center" >
             <Button Content="Save" Click="Save_Click" HorizontalAlignment="Center" MinHeight="20" MinWidth="50"/>
             <Button Content="Cancel" Click="Cancel_Click" HorizontalAlignment="Center" MinWidth="50"/>
