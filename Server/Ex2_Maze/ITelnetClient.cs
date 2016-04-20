@@ -13,6 +13,5 @@ namespace Ex2_Maze
         void Send(string command);
         string Read();
         void Disconnect();
-        Socket GetServer();
     }
 }

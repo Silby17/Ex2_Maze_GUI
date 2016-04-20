@@ -15,27 +15,38 @@ namespace Ex2_Maze
     {
         public event PropertyChangedEventHandler PropertyChanged;
         ITelnetClient telnetClient;
-        private Socket server;
-        Thread receiverThread;
-        private string fromServer;
         private string generate;
+        private string move;
         
 
-
+        /// <summary>
+        /// Constructor method that will get a new instance of
+        /// TelnetClient which will be in charge of communication
+        /// with the server</summary>
+        /// <param name="telnetClient">Communation handler</param>
         public Model(ITelnetClient telnetClient)
         {
             this.telnetClient = telnetClient;
         }
 
 
+
+        /// <summary>
+        /// This will send params to the TelnetClinet 
+        /// inorder to connect to the server </summary>
+        /// <param name="ip">ip to connect to</param>
+        /// <param name="port">Port to connect to</param>
         public void Connect(string ip, int port)
         {
             this.telnetClient.Connect(ip, port);
-            this.server = telnetClient.GetServer();
         }
 
 
 
+       /// <summary>
+       /// This method will pass on command to the TelnetClient
+       /// to send msg to the Server</summary>
+       /// <param name="toSend">message to send</param>
         public void Send(string toSend)
         {
             if(toSend[0].Equals('1'))
@@ -46,10 +57,11 @@ namespace Ex2_Maze
                 //GeneralMaze<int> maze = ser.Deserialize<GeneralMaze<int>>(Generate);
             }
         }
-
        
 
-
+        /// <summary>
+        /// Send request to TelnetClient to disconnect from the server
+        /// </summary>
         public void Disconnect()
         {
             this.telnetClient.Disconnect();
@@ -57,7 +69,9 @@ namespace Ex2_Maze
 
 
 
-
+        /// <summary>
+        /// Publish event change to all the subscribers </summary>
+        /// <param name="propName">property name that was changed</param>
         public void Publish(string propName)
         {
             if (this.PropertyChanged != null)
@@ -67,13 +81,13 @@ namespace Ex2_Maze
         }
 
         
-
+        /// <summary>
+        /// Generate property </summary>
         public string Generate
         {
             get { return generate; }
             set { generate = value;
                 Publish("Generate"); }
         }
-
     }
 }

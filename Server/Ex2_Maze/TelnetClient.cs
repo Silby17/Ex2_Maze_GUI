@@ -34,8 +34,6 @@ namespace Ex2_Maze
             catch (SocketException e) { Console.WriteLine("Unable to connect to server." + e.ToString()); }
         }
 
-       public Socket GetServer()
-        { return this.server; }
 
 
         /// <summary>
