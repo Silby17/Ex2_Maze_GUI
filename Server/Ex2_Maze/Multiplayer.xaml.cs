@@ -22,6 +22,8 @@ namespace Ex2_Maze
         public Multiplayer()
         {
             InitializeComponent();
+            //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
+            //MusicPlayer.Play();
         }
     }
 }
