@@ -44,8 +44,7 @@
                 <Label Grid.Column="1" Grid.Row="1" Background="Black"></Label>
                 <Label Grid.Column="3" Grid.Row="1" Background="Black"></Label>
             </Grid>
-
-                <WrapPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <WrapPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="Start" Click="Start_Click"  MinHeight="20" MinWidth="50"/>
                 <Button Content="Return" Click="Back_Click"  MinWidth="50"/>
                 <Button Content="Suggestion" Click="Suggestion_Click"  MinWidth="50"/>

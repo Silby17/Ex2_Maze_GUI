@@ -22,11 +22,11 @@ namespace Ex2_Maze
     {
         private string gen = "1 Maze_ ";
         private Random rand;
-        MainWindow mainWin;
+        ViewModel viewModel;
 
-        public Play(MainWindow mw)
+        public Play(ViewModel vm)
         {
-            this.mainWin = mw;
+            this.viewModel = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
 
@@ -36,22 +36,31 @@ namespace Ex2_Maze
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.No)
+            if (viewModel.VM_Connected == false)
             {
-                //close window 
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show("No Connection with Server", "Connection Error", MessageBoxButton.OK, icon);
             }
-            //TODO to reload the window
-            else if(result == MessageBoxResult.Yes)
+            else
             {
-                
-                this.rand = new Random();
-                string num = (rand.Next(0, 11)).ToString();
-                gen += num += " ";
-                int type = rand.Next(0, 2);
-                gen += type.ToString();
-                this.mainWin.vm.Command(gen);
+                MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                {
+                    //close window 
+                }
+                //TODO to reload the window
+                else if (result == MessageBoxResult.Yes)
+                {
+                    this.rand = new Random();
+                    string num = (rand.Next(0, 11)).ToString();
+                    gen += num += " ";
+                    int type = rand.Next(0, 2);
+                    gen += type.ToString();
+                    viewModel.Command(gen);
+                }
             }
+
+
         }
 
 
@@ -63,11 +72,19 @@ namespace Ex2_Maze
                 this.Close();
 
             }
-            
+
         }
-        
+
         private void Suggestion_Click(object sender, RoutedEventArgs e)
         {
+            if (viewModel.VM_Connected == false)
+            {
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show("No Connection with Server", "Connection Error", MessageBoxButton.OK, icon);
+            }
+            else
+            {
+            }
 
         }
 
