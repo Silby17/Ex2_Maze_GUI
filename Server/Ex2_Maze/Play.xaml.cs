@@ -22,11 +22,11 @@ namespace Ex2_Maze
     {
         private string gen = "1 Maze_ ";
         private Random rand;
-        MainWindow mainWin;
+        ViewModel viewModel;
 
-        public Play(MainWindow mw)
+        public Play(ViewModel vm)
         {
-            this.mainWin = mw;
+            this.viewModel = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
 
@@ -50,7 +50,7 @@ namespace Ex2_Maze
                 gen += num += " ";
                 int type = rand.Next(0, 2);
                 gen += type.ToString();
-                this.mainWin.vm.Command(gen);
+                viewModel.Command(gen);
             }
         }
 
