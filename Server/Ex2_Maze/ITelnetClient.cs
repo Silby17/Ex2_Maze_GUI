@@ -13,5 +13,7 @@ namespace Ex2_Maze
         void Send(string command);
         string Read();
         void Disconnect();
+
+        Boolean Connected { get; set; }
     }
 }

@@ -15,8 +15,9 @@ namespace Ex2_Maze
     {
         public event PropertyChangedEventHandler PropertyChanged;
         ITelnetClient telnetClient;
-        private string generate;
-        private string move;
+        public string generate;
+        private Boolean connected;
+        
         
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace Ex2_Maze
         public void Connect(string ip, int port)
         {
             this.telnetClient.Connect(ip, port);
+            this.Connected = telnetClient.Connected;
         }
 
 
@@ -88,6 +90,16 @@ namespace Ex2_Maze
             get { return generate; }
             set { generate = value;
                 Publish("Generate"); }
+        }
+
+
+
+        public Boolean Connected
+        {
+            get { return connected; }
+            set { connected = value;
+                Publish("Connected");
+            }
         }
     }
 }

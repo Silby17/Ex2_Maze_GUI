@@ -11,6 +11,8 @@ namespace Ex2_Maze
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private IMazeModel model;
+        
+
 
         public ViewModel(IMazeModel m)
         {
@@ -33,14 +35,26 @@ namespace Ex2_Maze
         }
 
 
+
+
         public void PublishEvent(string propName)
         {
-
+            if(PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
+
 
         public void Connect(string IP, string port)
         {
             this.model.Connect(IP, Int32.Parse(port));
         }
+
+        public Boolean VM_Connected
+        {
+            get { return model.Connected; }
+        }
+        
     }
 }

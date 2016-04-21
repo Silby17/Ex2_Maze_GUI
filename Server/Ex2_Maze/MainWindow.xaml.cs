@@ -80,6 +80,6 @@ namespace Ex2_Maze
             this.dPORT = port;
             vm.Connect(ip, port);
             
-        }
+        }   
     }
 }

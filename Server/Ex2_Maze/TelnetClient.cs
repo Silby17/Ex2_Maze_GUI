@@ -12,8 +12,14 @@ namespace Ex2_Maze
         private IPAddress IP;
         private Socket server;
         private IPEndPoint ipep;
-        public Boolean connected { get; set; }
         public string generated { get; set; }
+        public Boolean Connected { get; set; }
+        
+
+        public TelnetClient()
+        {
+            this.Connected = false;
+        }
 
 
         /// <summary>
@@ -31,7 +37,7 @@ namespace Ex2_Maze
             {
                 server.Connect(ipep);
                 Console.WriteLine("Connected to Server");
-                connected = true;
+                Connected = true;
                 Read();
             }
             catch (SocketException e) { Console.WriteLine("Unable to connect to server." + e.ToString()); }
@@ -74,9 +80,13 @@ namespace Ex2_Maze
         /// Disconnects the client from the Server</summary>
         public void Disconnect()
         {
-            connected = false;
+            Connected = false;
             server.Shutdown(SocketShutdown.Both);
             server.Close();
-        }        
+        }
+
+
+
+        
     }
 }

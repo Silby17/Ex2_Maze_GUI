@@ -19,7 +19,7 @@
         Width="100"
         Height="40"
         Click="Play_Click" Margin="189,10,228,269" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        
+
         <Button Content="Multiplayer"
         Width="100"
         Height="40"

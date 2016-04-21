@@ -29,7 +29,7 @@ namespace Ex2_Maze
             this.mainWin = mw;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            
+
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
             //MusicPlayer.Play();
         }
@@ -68,6 +68,31 @@ namespace Ex2_Maze
         private void Suggestion_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        /// <summary>
+        /// This will handle any keys pressed on the play window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Up)
+            {
+                
+            }
+            else if(e.Key == Key.Right)
+            {
+            }
+            else if (e.Key == Key.Down)
+            {
+
+            }
+            else if (e.Key == Key.Left)
+            {
+
+            }
         }
     }
    
