@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows;
 
 
@@ -12,9 +13,11 @@ namespace Ex2_Maze
         private string sIP;
         private string sPORT;
         private MainWindow mainWindow;
+        System.Configuration.Configuration config;
 
         public Settings(MainWindow mw)
         {
+            this.config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             this.mainWindow = mw;
             
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -32,10 +35,14 @@ namespace Ex2_Maze
         /// <param name="e"></param>
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Save clicked");
             string ip = lblIP.Text.ToString();
             string port = lblPORT.Text.ToString();
             mainWindow.ChangeConnectionSettings(ip, port);
+
+             
+            config.AppSettings.Settings["PORT"].Value = port;
+            config.AppSettings.Settings["IP"].Value = ip;
+            config.Save(ConfigurationSaveMode.Modified);
             this.Close();
         }
 
@@ -49,8 +56,8 @@ namespace Ex2_Maze
 
         public void ReadDefaultSettings()
         {
-            this.sPORT =(System.Configuration.ConfigurationManager.AppSettings["Port"]);
-            this.sIP = (System.Configuration.ConfigurationManager.AppSettings["IP"]);
+            this.sPORT =(config.AppSettings.Settings["Port"].Value);
+            this.sIP = (config.AppSettings.Settings["IP"].Value);
         }
     }
 }
