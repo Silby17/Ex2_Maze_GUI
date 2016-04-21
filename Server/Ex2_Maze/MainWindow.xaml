@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
-        Title="Maze Game" Height="350" Width="525" >
+        Title="Maze Game" Height="350" Width="525" DataContext="{Binding}" >
     <Window.Background>
         <ImageBrush ImageSource="Traquair_House_Maze.jpg"/>
     </Window.Background>
@@ -25,5 +25,7 @@
         Height="40"
         Click="Multiplayer_Click" Margin="294,10,123,269" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10">Created by: Yossi Silberhaft and Nava Shemoul</Label>
+        
+
     </Grid> 
 </Window>
