@@ -44,6 +44,7 @@ namespace Ex2_Maze
             //TODO to reload the window
             else if(result == MessageBoxResult.Yes)
             {
+                
                 this.rand = new Random();
                 string num = (rand.Next(0, 11)).ToString();
                 gen += num += " ";
@@ -69,6 +70,8 @@ namespace Ex2_Maze
         {
 
         }
+
+
 
 
         /// <summary>
