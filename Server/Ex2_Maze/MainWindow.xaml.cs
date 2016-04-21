@@ -63,9 +63,9 @@ namespace Ex2_Maze
 
         private void Multiplayer_Click(object sender, RoutedEventArgs e)
         {
-           Multiplayer multiplayerWindow  = new Multiplayer();
+           Multiplayer multiplayerWindow  = new Multiplayer(vm);
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            //multiplayerWindow.Show();
+            multiplayerWindow.Show();
         }
 
         private void GetConnectionInfo()
