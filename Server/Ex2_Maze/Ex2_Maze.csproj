@@ -135,6 +135,7 @@
     <Resource Include="Traquair_House_Maze.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="conIcon.png" />
     <Content Include="sovtoda.wav" />
     <Resource Include="connectionInfo.txt" />
     <Content Include="Krewella - Enjoy The Ride %28Vicetone Remix%29.mp3" />
@@ -145,6 +146,10 @@
     <ProjectReference Include="..\E1_Maze\Ex1_Maze.csproj">
       <Project>{4b708b7b-734d-4f63-b336-98b571cab780}</Project>
       <Name>Ex1_Maze</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{d5e4dd2e-d6dd-4c3f-9a00-d1c5f937d0b1}</Project>
+      <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
