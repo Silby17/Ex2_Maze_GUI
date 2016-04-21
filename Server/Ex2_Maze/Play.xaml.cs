@@ -20,7 +20,7 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Play : Window
     {
-        private string gen = "1 Maze ";
+        private string gen = "1 Maze_ ";
         private Random rand;
         MainWindow mainWin;
 
@@ -39,19 +39,20 @@ namespace Ex2_Maze
             MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
-                //close window
-                
+                //close window 
             }
             //TODO to reload the window
             else if(result == MessageBoxResult.Yes)
             {
                 this.rand = new Random();
+                string num = (rand.Next(0, 11)).ToString();
+                gen += num += " ";
                 int type = rand.Next(0, 2);
                 gen += type.ToString();
                 this.mainWin.vm.Command(gen);
             }
-
         }
+
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
