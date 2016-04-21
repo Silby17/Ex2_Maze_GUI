@@ -57,7 +57,7 @@ namespace Ex2_Maze
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             //this.Hide();
-            Play playerWindow = new Play(this);
+            Play playerWindow = new Play(vm);
             playerWindow.ShowDialog();
         }
 
