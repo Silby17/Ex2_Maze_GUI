@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Net;
+using System;
+
 
 namespace Ex2_Maze
 {
@@ -14,10 +12,14 @@ namespace Ex2_Maze
         private IPAddress IP;
         private Socket server;
         private IPEndPoint ipep;
-        private Thread receiverThread;
+        public Boolean connected { get; set; }
         public string generated { get; set; }
 
 
+        /// <summary>
+        /// Connects to the server</summary>
+        /// <param name="ip">IP address to connect to</param>
+        /// <param name="port">the Port to connect to</param>
         public void Connect(string ip, int port)
         {
             this.PORT = port;
@@ -29,8 +31,9 @@ namespace Ex2_Maze
             {
                 server.Connect(ipep);
                 Console.WriteLine("Connected to Server");
+                connected = true;
                 Read();
-                }
+            }
             catch (SocketException e) { Console.WriteLine("Unable to connect to server." + e.ToString()); }
         }
 
@@ -45,6 +48,9 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Method that will read any expected data from the Server</summary>
+        /// <returns>The data received</returns>
         public string Read()
         {
             try
@@ -56,7 +62,7 @@ namespace Ex2_Maze
             }
             catch (SocketException e)
             {
-                Console.WriteLine("Connection with Server has been Terminated: Server Shut Down.");
+                Console.WriteLine(e.ToString());
                 server.Shutdown(SocketShutdown.Both);
                 server.Close();
                 return null;
@@ -64,12 +70,13 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Disconnects the client from the Server</summary>
         public void Disconnect()
         {
+            connected = false;
             server.Shutdown(SocketShutdown.Both);
             server.Close();
-        }
-
-        
+        }        
     }
 }
