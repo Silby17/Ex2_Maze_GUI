@@ -48,14 +48,20 @@ namespace Server
             byte[] data = new byte[1024];
             while (true)
             {
-                data = new byte[1024];
-                int recv = client.Receive(data);
-                if (recv == 0) break;
-                string str = Encoding.ASCII.GetString(data, 0, recv);
-                if (str.Equals("exit")) break;
-                OnNewInput(str, client);
+                try
+                {
+                    data = new byte[1024];
+                    int recv = client.Receive(data);
+                    if (recv == 0) break;
+                    string str = Encoding.ASCII.GetString(data, 0, recv);
+                    if (str.Equals("exit")) break;
+                    OnNewInput(str, client);
+                }
+                catch
+                {
+                    client.Close();
+                }   
             }
-            client.Close();
         }
 
 
