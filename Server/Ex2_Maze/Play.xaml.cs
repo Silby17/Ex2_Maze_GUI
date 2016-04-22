@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex1_Maze;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Web.Script.Serialization;
 
 namespace Ex2_Maze
 {
@@ -20,15 +22,17 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Play : Window
     {
-        private string gen = "1 Maze_ ";
+        private string gen = "1 Maze";
         private Random rand;
         ViewModel viewModel;
+        GeneralMaze<int> currentMaze;
 
         public Play(ViewModel vm)
         {
             this.viewModel = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            
 
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
             //MusicPlayer.Play();
@@ -57,11 +61,14 @@ namespace Ex2_Maze
                     int type = rand.Next(0, 2);
                     gen += type.ToString();
                     viewModel.Command(gen);
+
+                    InitializeComponent();
+                    lst.ItemsSource = viewModel.VM_Maze;
                 }
             }
-
-
         }
+
+
 
 
         private void Back_Click(object sender, RoutedEventArgs e)

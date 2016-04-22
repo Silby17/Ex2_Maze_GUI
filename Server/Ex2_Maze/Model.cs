@@ -17,6 +17,8 @@ namespace Ex2_Maze
         ITelnetClient telnetClient;
         public string generate;
         private Boolean connected;
+        public List<List<int>> maze;
+        public GeneralMaze<int> genMaze;
         
         
 
@@ -55,8 +57,7 @@ namespace Ex2_Maze
             {
                 this.telnetClient.Send(toSend);
                 Generate = telnetClient.Read();
-                //JavaScriptSerializer ser = new JavaScriptSerializer();
-                //GeneralMaze<int> maze = ser.Deserialize<GeneralMaze<int>>(Generate);
+                
             }
         }
        
@@ -89,6 +90,7 @@ namespace Ex2_Maze
         {
             get { return generate; }
             set { generate = value;
+                ConvertStringToMaze();
                 Publish("Generate"); }
         }
 
@@ -100,6 +102,38 @@ namespace Ex2_Maze
             set { connected = value;
                 Publish("Connected");
             }
+        }
+
+
+        public List<List<int>> Maze
+        {
+            get { return maze; }
+            set { maze = value; }
+        }
+
+
+
+        /// <summary>
+        /// This method takes the JSON from the Generation action
+        /// deserializes it into GeneralMaze and then converts the MazeString
+        /// into a list which is set to the databinding in the grid </summary>
+        public void ConvertStringToMaze()
+        {
+            this.maze = new List<List<int>>();
+            JavaScriptSerializer ser = new JavaScriptSerializer();
+            this.genMaze = ser.Deserialize<GeneralMaze<int>>(Generate);
+
+            for(int i = 0; i < 5; i++)
+            {
+                Maze.Add(new List<int>());
+                for (int j = 0; j < 5; j++)
+                {
+                    this.maze[i].Add((int)Char.GetNumericValue(genMaze.Maze[i * 5 + j]));
+                }
+            }
+            int sCol = this.genMaze.Start.Col;
+            int sRow = this.genMaze.Start.Row;
+            maze[sRow][sCol] = 5;
         }
     }
 }

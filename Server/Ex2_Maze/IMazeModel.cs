@@ -15,5 +15,6 @@ namespace Ex2_Maze
 
         Boolean Connected { get; set; }
         string Generate { get; set; }
+        List<List<int>> Maze { get; set; }
     }
 }

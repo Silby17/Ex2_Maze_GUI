@@ -11,7 +11,7 @@ namespace Ex2_Maze
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private IMazeModel model;
-        
+
 
 
         public ViewModel(IMazeModel m)
@@ -35,6 +35,10 @@ namespace Ex2_Maze
         }
 
 
+        public List<List<int>> VM_Maze
+        {
+            get { return model.Maze; }
+        }
 
 
         public void PublishEvent(string propName)
