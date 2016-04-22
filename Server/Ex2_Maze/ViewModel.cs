@@ -49,6 +49,17 @@ namespace Ex2_Maze
             }
         }
 
+        private decimal _numValue = -1;
+        public decimal NumericValue
+        {
+            get { return _numValue; }
+            set
+            {
+                _numValue = value;
+                PublishEvent("NumericValue");
+            }
+        }
+
 
         public void Connect(string IP, string port)
         {

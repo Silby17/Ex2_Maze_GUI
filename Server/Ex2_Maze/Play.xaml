@@ -11,7 +11,7 @@
 
     <Window.Resources>
         <DataTemplate x:Key="DataTemplate_Level2">
-            <Label Content="{Binding}" Width="70" Height="70" Background="Aqua" HorizontalContentAlignment="Center"/>
+            <Label Content="{Binding}" Width="70" Height="70" Background="Gray" HorizontalContentAlignment="Center" />
         </DataTemplate>
 
         <DataTemplate x:Key="DataTemplate_Level1">
