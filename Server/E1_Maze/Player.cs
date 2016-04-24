@@ -12,15 +12,15 @@ namespace Ex1_Maze
     {
         public string Name { get; set;}
         public string MazeName { get; set; }
-        public string You { get; set; }
-        public string Other { get; set; }
+        public GeneralMaze<int> You { get; set; }
+        public GeneralMaze<int> Other { get; set; }
 
         private Socket clientSocket;
         private GeneralMaze<int> playerMaze;
-        private string JSONString;
         private Node<int> currentNode;
         
 
+        public Player() { }
         /// <summary>
         /// Constuctor method that will set the Client</summary>
         /// <param name="client">The Players Socket details</param>
