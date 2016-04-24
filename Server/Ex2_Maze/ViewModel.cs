@@ -44,6 +44,16 @@ namespace Ex2_Maze
             get { return model.Maze; }
         }
 
+        public List<List<int>> VM_MyMaze
+        {
+            get { return model.myMaze; }
+        }
+
+        public List<List<int>> VM_Player2Maze
+        {
+            get { return model.player2Maze; }
+        }
+
 
         public void PublishEvent(string propName)
         {

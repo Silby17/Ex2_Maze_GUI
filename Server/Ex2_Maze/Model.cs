@@ -18,6 +18,9 @@ namespace Ex2_Maze
         public string generate;
         private Boolean connected;
         public List<List<int>> maze;
+        public List<List<int>> myMaze { get; set; }
+        public List<List<int>> player2Maze { get; set; }
+
         public GeneralMaze<int> genMaze { get; set; }
         public JPosition currentNode { get; set; }
         
@@ -57,8 +60,13 @@ namespace Ex2_Maze
             if(toSend[0].Equals('1'))
             {
                 this.telnetClient.Send(toSend);
-                Generate = telnetClient.Read();
-                
+                Generate = telnetClient.Read();                
+            }
+            else if(toSend[0].Equals('3'))
+            {
+                this.telnetClient.Send(toSend);
+
+
             }
         }
        
@@ -106,10 +114,13 @@ namespace Ex2_Maze
         }
 
 
+
         public List<List<int>> Maze
         {
             get { return maze; }
-            set { maze = value; }
+            set { maze = value;
+                Publish("Maze");
+            }
         }
 
 
@@ -120,7 +131,6 @@ namespace Ex2_Maze
                 currentNode.Row = currentNode.Row - 1;
             }
             maze[currentNode.Row][currentNode.Col] = 5;
-            Publish("Maze");
         }
 
         /// <summary>
