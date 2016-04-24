@@ -53,11 +53,13 @@ namespace Server.Options
                         g.CreateSecondMaze();
                         player.SetPlayerMaze(g.GetPlayer2Maze());
                         player.MazeName = player.GetPlayerMaze().Name;
-                        string you = ser.Serialize(player.GetPlayerMaze());
-                        player.You = JToken.Parse(you).ToString();
-                        string other = ser.Serialize(games[0].playersList[0].GetPlayerMaze());
-                        player.Other = JToken.Parse(other).ToString();
-                        games[0].playersList[0].Other = you;
+                        //string you = ser.Serialize(player.GetPlayerMaze());
+                        player.You = player.GetPlayerMaze();
+                        player.Other = games[0].playersList[0].GetPlayerMaze();
+                        //player.You = JToken.Parse(you).ToString();
+                        //string other = ser.Serialize(games[0].playersList[0].GetPlayerMaze());
+                        //player.Other = JToken.Parse(other).ToString();
+                        games[0].playersList[0].Other = player.GetPlayerMaze();
                         g.SetPlayers();
                         PublishEvent();                        
                     }
@@ -86,9 +88,10 @@ namespace Server.Options
             games.Add(newGame);
             player.SetPlayerMaze(newMaze);
             player.MazeName = player.GetPlayerMaze().Name;
-            string you = ser.Serialize(player.GetPlayerMaze());
-            you = JToken.Parse(you).ToString();
-            player.You = you;
+            player.You = player.GetPlayerMaze();
+            //string you = ser.Serialize(player.GetPlayerMaze());
+            //you = JToken.Parse(you).ToString();
+            //player.You = you;
         }
 
 
@@ -118,7 +121,7 @@ namespace Server.Options
             GeneralMaze<int> newGM = new GeneralMaze<int>(newMaze);
             Random rand = new Random();
             int type = rand.Next(0, 2);
-            string mazeName = name + "_1" + " " + type;
+            string mazeName = name + "_1";
             newGM.Generate(mazeName, type);
             return newGM;
         }
