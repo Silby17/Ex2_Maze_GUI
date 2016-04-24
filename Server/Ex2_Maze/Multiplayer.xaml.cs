@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;   
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace Ex2_Maze
 {
@@ -19,7 +9,6 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Multiplayer : Window
     {
-        private string gen = "1 Maze_ ";
         private Random rand;
         ViewModel viewModel;
 
@@ -38,11 +27,13 @@ namespace Ex2_Maze
             if (viewModel.VM_Connected == false)
             {
                 MessageBoxImage icon = MessageBoxImage.Error;
-                MessageBox.Show("No Connection with Server", "Connection Error", MessageBoxButton.OK, icon);
+                MessageBox.Show("No Connection with Server", "Connection Error",
+                    MessageBoxButton.OK, icon);
             }
             else
             {
-                MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Do you want to start a new game?",
+                    "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
                     //close window 
@@ -50,16 +41,15 @@ namespace Ex2_Maze
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
                 {
-                    this.rand = new Random();
-                    string num = (rand.Next(0, 11)).ToString();
-                    gen += num += " ";
-                    int type = rand.Next(0, 2);
-                    gen += type.ToString();
+                    string mazeName = txtbMaze.Text;
+                    string gen = "3 ";
+                    gen += mazeName;
                     viewModel.Command(gen);
+                    InitializeComponent();
+                    myMaze.ItemsSource = viewModel.VM_MyMaze;
+                    plr2.ItemsSource = viewModel.VM_Player2Maze;
                 }
             }
-
-
         }
 
 
