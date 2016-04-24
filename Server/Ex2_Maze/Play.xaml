@@ -8,12 +8,16 @@
         KeyDown="OnKeyDownHandler"
         Title="Play" Height="500" Width="500" >
 
-
     <Window.Resources>
         <DataTemplate x:Key="DataTemplate_Level2">
-            <Label Content="{Binding}" Width="70" Height="70" Background="Gray" HorizontalContentAlignment="Center" />
+            <Label Content="{Binding}" Width="70" Height="70" HorizontalContentAlignment="Center" x:Name="Background">
+            </Label>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding}" Value="1">
+                    <Setter TargetName="Background" Property="Background" Value="Black"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
-
         <DataTemplate x:Key="DataTemplate_Level1">
             <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
                 <ItemsControl.ItemsPanel>
@@ -23,10 +27,9 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </DataTemplate>
-
     </Window.Resources>
 
-    <DockPanel>
+    <DockPanel Name="Dock">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20" />

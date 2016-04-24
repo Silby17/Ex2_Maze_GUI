@@ -18,7 +18,8 @@ namespace Ex2_Maze
         public string generate;
         private Boolean connected;
         public List<List<int>> maze;
-        public GeneralMaze<int> genMaze;
+        public GeneralMaze<int> genMaze { get; set; }
+        public JPosition currentNode { get; set; }
         
         
 
@@ -112,6 +113,15 @@ namespace Ex2_Maze
         }
 
 
+        public void Move(string direction)
+        {
+            if(direction == "up")
+            {
+                currentNode.Row = currentNode.Row - 1;
+            }
+            maze[currentNode.Row][currentNode.Col] = 5;
+            Publish("Maze");
+        }
 
         /// <summary>
         /// This method takes the JSON from the Generation action
@@ -122,7 +132,7 @@ namespace Ex2_Maze
             this.maze = new List<List<int>>();
             JavaScriptSerializer ser = new JavaScriptSerializer();
             this.genMaze = ser.Deserialize<GeneralMaze<int>>(Generate);
-
+            this.currentNode = genMaze.Start;
             for(int i = 0; i < 5; i++)
             {
                 Maze.Add(new List<int>());
@@ -131,9 +141,13 @@ namespace Ex2_Maze
                     this.maze[i].Add((int)Char.GetNumericValue(genMaze.Maze[i * 5 + j]));
                 }
             }
-            int sCol = this.genMaze.Start.Col;
-            int sRow = this.genMaze.Start.Row;
+            int sCol = this.currentNode.Col;
+            int sRow = this.currentNode.Row;
             maze[sRow][sCol] = 5;
+
+            int eRow = this.genMaze.End.Row;
+            int eCol = this.genMaze.End.Col;
+            maze[eRow][eCol] = 9;
         }
     }
 }

@@ -22,10 +22,10 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Play : Window
     {
-        private string gen = "1 Maze";
         private Random rand;
         ViewModel viewModel;
         GeneralMaze<int> currentMaze;
+        JPosition currentNode;
 
         public Play(ViewModel vm)
         {
@@ -47,7 +47,8 @@ namespace Ex2_Maze
             }
             else
             {
-                MessageBoxResult result = MessageBox.Show("Do you want to start a new game?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Do you want to start a new game?",
+                    "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
                     //close window 
@@ -55,13 +56,13 @@ namespace Ex2_Maze
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
                 {
+                    String gen = "1 Maze";
                     this.rand = new Random();
-                    string num = (rand.Next(0, 11)).ToString();
+                    string num = (rand.Next(0, 30)).ToString();
                     gen += num += " ";
                     int type = rand.Next(0, 2);
                     gen += type.ToString();
                     viewModel.Command(gen);
-
                     InitializeComponent();
                     lst.ItemsSource = viewModel.VM_Maze;
                 }
@@ -73,13 +74,13 @@ namespace Ex2_Maze
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Do you want to close this window?",
+                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 this.Close();
 
             }
-
         }
 
         private void Suggestion_Click(object sender, RoutedEventArgs e)
@@ -87,7 +88,8 @@ namespace Ex2_Maze
             if (viewModel.VM_Connected == false)
             {
                 MessageBoxImage icon = MessageBoxImage.Error;
-                MessageBox.Show("No Connection with Server", "Connection Error", MessageBoxButton.OK, icon);
+                MessageBox.Show("No Connection with Server", "Connection Error",
+                    MessageBoxButton.OK, icon);
             }
             else
             {
@@ -107,7 +109,7 @@ namespace Ex2_Maze
         {
             if(e.Key == Key.Up)
             {
-                
+                viewModel.Move("up");
             }
             else if(e.Key == Key.Right)
             {
@@ -119,8 +121,7 @@ namespace Ex2_Maze
             else if (e.Key == Key.Left)
             {
 
-            }
+            }            
         }
-    }
-   
+    }  
 }

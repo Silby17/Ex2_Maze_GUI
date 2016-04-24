@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ex1_Maze;
 
 namespace Ex2_Maze
 {
     public class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public GeneralMaze<int> playerMaze;
         private IMazeModel model;
 
 
@@ -33,6 +35,8 @@ namespace Ex2_Maze
         {
             get { return model.Generate; }
         }
+
+
 
 
         public List<List<int>> VM_Maze
@@ -66,10 +70,16 @@ namespace Ex2_Maze
             this.model.Connect(IP, Int32.Parse(port));
         }
 
+
+
         public Boolean VM_Connected
         {
             get { return model.Connected; }
+        }           
+
+        public void Move(string direction)
+        {
+            model.Move(direction);
         }
-        
     }
 }
