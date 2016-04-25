@@ -41,13 +41,21 @@ namespace Ex2_Maze
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
                 {
-                    string mazeName = txtbMaze.Text;
-                    string gen = "3 ";
-                    gen += mazeName;
-                    viewModel.Command(gen);
-                    InitializeComponent();
-                    myMaze.ItemsSource = viewModel.VM_MyMaze;
-                    plr2.ItemsSource = viewModel.VM_Player2Maze;
+                    if(txtbMaze.Text == "")
+                    {
+                        MessageBox.Show("Please enter in a Game Name");
+                    }
+                    else
+                    {
+                        string mazeName = txtbMaze.Text;
+                        string gen = "3 ";
+                        gen += mazeName;
+                        viewModel.Command(gen);
+                        InitializeComponent();
+                        myMaze.ItemsSource = viewModel.VM_MyMaze;
+                        plr2.ItemsSource = viewModel.VM_Player2Maze;
+                    }
+                    
                 }
             }
         }

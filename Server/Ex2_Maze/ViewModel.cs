@@ -44,6 +44,7 @@ namespace Ex2_Maze
             get { return model.Maze; }
         }
 
+
         public List<List<int>> VM_MyMaze
         {
             get { return model.myMaze; }
