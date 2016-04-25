@@ -8,6 +8,7 @@
         Title="Multiplayer" Height="500" Width="500">
 
     <Window.Resources>
+
         <DataTemplate x:Key="DataTemplate_Level2">
             <Label Content="{Binding}" Width="70" Height="70" HorizontalContentAlignment="Center" x:Name="Background">
             </Label>
@@ -27,7 +28,6 @@
             </ItemsControl>
         </DataTemplate>
     </Window.Resources>
-
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>

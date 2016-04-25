@@ -84,9 +84,5 @@ namespace Ex2_Maze
             server.Shutdown(SocketShutdown.Both);
             server.Close();
         }
-
-
-
-        
     }
 }
