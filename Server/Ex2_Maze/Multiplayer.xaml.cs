@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-
+using System.Windows.Input;
 
 namespace Ex2_Maze
 {
@@ -84,7 +84,31 @@ namespace Ex2_Maze
             else
             {
             }
+        }
 
+        /// <summary>
+        /// This will handle any keys pressed on the play window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up)
+            {
+                viewModel.Command("up");
+            }
+            else if (e.Key == Key.Right)
+            {
+                viewModel.Command("right");
+            }
+            else if (e.Key == Key.Down)
+            {
+
+            }
+            else if (e.Key == Key.Left)
+            {
+
+            }
         }
 
 
