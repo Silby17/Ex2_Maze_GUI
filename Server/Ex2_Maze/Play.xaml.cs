@@ -24,8 +24,7 @@ namespace Ex2_Maze
     {
         private Random rand;
         ViewModel viewModel;
-        GeneralMaze<int> currentMaze;
-        JPosition currentNode;
+        private string MazeName;
         private int WIDTH;
         private int HEIGHT;
 
@@ -36,7 +35,7 @@ namespace Ex2_Maze
             this.viewModel = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            
+            this.MazeName = "";
 
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
             //MusicPlayer.Play();
@@ -55,7 +54,7 @@ namespace Ex2_Maze
                     "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
-                    //close window 
+                    //Start game from the begining
                 }
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
@@ -66,6 +65,7 @@ namespace Ex2_Maze
                     gen += num += " ";
                     int type = rand.Next(0, 2);
                     gen += type.ToString();
+                    this.MazeName = gen;
                     viewModel.Command(gen);
                     InitializeComponent();
                     lst.ItemsSource = viewModel.VM_Maze;
@@ -74,19 +74,23 @@ namespace Ex2_Maze
         }
 
 
-
-
+        /// <summary>
+        /// OnClick handler for for the Exit button</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Do you want to close this window?",
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
-            {
-                this.Close();
-
-            }
+            {this.Close();}
         }
 
+
+        /// <summary>
+        /// OnClick Handler for the getSugestion button</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Suggestion_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.VM_Connected == false)
@@ -95,10 +99,12 @@ namespace Ex2_Maze
                 MessageBox.Show("No Connection with Server", "Connection Error",
                     MessageBoxButton.OK, icon);
             }
-            else
+            else if(this.MazeName == "")
             {
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show("No Maze Loaded", "Maze Error",
+                    MessageBoxButton.OK, icon);
             }
-
         }
 
 

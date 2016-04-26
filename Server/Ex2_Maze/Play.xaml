@@ -47,8 +47,8 @@
             </Grid>
             <WrapPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="Start" Click="Start_Click" FontSize="15" MinHeight="30" MinWidth="90"/>
-                <Button Content="Return" Click="Back_Click"  FontSize="15" MinHeight="30" MinWidth="90"/>
                 <Button Content="Suggestion" Click="Suggestion_Click"  FontSize="15" MinHeight="30" MinWidth="90"/>
+                <Button Content="Exit" Click="Back_Click"  FontSize="15" MinHeight="30" MinWidth="90"/>
             </WrapPanel>
             <Label Grid.Column="1" Grid.Row="3">Created by: Yossi Silberhaft and Nava Shemoul</Label>
         </Grid>

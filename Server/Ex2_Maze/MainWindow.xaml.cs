@@ -22,23 +22,21 @@ namespace Ex2_Maze
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string dIP{get; set;}
-        public string dPORT { get; set; }
-        public ViewModel vm;   
+        public ViewModel viewModel;   
 
-
+        /// <summary>
+        /// Constructor Method for this MainWindow</summary>
         public MainWindow()
         {
-            GetConnectionInfo();
-            this.vm = new ViewModel(new Model(new TelnetClient()));
+            this.viewModel = new ViewModel(new Model(new TelnetClient()));
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            Uri iconUri = new Uri(Directory.GetCurrentDirectory() + "/mazeIcon.png");
+            this.Icon = BitmapFrame.Create(iconUri);
             InitializeComponent();
-            DataContext = vm;
+            DataContext = viewModel;
             string musicPath = Directory.GetCurrentDirectory();
             musicPath += "Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav";
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@musicPath);
-            //vm.Connect(dIP, dPORT);
-            //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze\Ex2_Maze\Ex2_Maze\Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav");
             //MusicPlayer.Play();
         }
 
@@ -50,36 +48,31 @@ namespace Ex2_Maze
         /// <param name="e">and params to be passed</param>
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            Settings settingsWindow = new Settings(this);
+            Settings settingsWindow = new Settings(viewModel);
             settingsWindow.ShowDialog();
         }
 
+
+        /// <summary>
+        /// Method that will handle the OnClick of the Play button</summary>
+        /// <param name="sender">Sender that clicked the button</param>
+        /// <param name="e">Event Params</param>
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            //this.Hide();
-            Play playerWindow = new Play(vm);
+            Play playerWindow = new Play(viewModel);
             playerWindow.ShowDialog();
         }
 
+
+        /// <summary>
+        /// Method that will handle the the OnClick of the multiplayer Button</summary>
+        /// <param name="sender">Sender of the button click</param>
+        /// <param name="e">Params that are send to the handler</param>
         private void Multiplayer_Click(object sender, RoutedEventArgs e)
         {
-           Multiplayer multiplayerWindow  = new Multiplayer(vm);
+            Multiplayer multiplayerWindow  = new Multiplayer(viewModel);
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            multiplayerWindow.Show();
+            multiplayerWindow.ShowDialog();
         }
-
-        private void GetConnectionInfo()
-        {
-            this.dPORT = (System.Configuration.ConfigurationManager.AppSettings["Port"]);
-            this.dIP = (System.Configuration.ConfigurationManager.AppSettings["IP"]);
-        }
-
-        public void ChangeConnectionSettings(string ip, string port)
-        {
-            this.dIP = ip;
-            this.dPORT = port;
-            vm.Connect(ip, port);
-            
-        }   
     }
 }
