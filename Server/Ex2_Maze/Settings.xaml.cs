@@ -1,6 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Windows;
+using System;
 
 
 namespace Ex2_Maze
@@ -10,21 +10,24 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Settings : Window
     {
-        private string sIP;
-        private string sPORT;
-        private MainWindow mainWindow;
+        private ViewModel viewModel;
         System.Configuration.Configuration config;
+        private string IP;
+        private string PORT;
 
-        public Settings(MainWindow mw)
+
+        /// <summary>
+        /// Constructor Method that receives the viewModel</summary>
+        /// <param name="vm">the programs ViewModel</param>
+        public Settings(ViewModel vm)
         {
             this.config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            this.mainWindow = mw;
-            
+            this.viewModel = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             ReadDefaultSettings();
             InitializeComponent();
-            lblIP.Text = mw.dIP.ToString();
-            lblPORT.Text = mw.dPORT;
+            lblIP.Text = this.IP;
+            lblPORT.Text = this.PORT;
         }
 
 
@@ -37,7 +40,7 @@ namespace Ex2_Maze
         {
             string ip = lblIP.Text.ToString();
             string port = lblPORT.Text.ToString();
-            mainWindow.ChangeConnectionSettings(ip, port);
+            viewModel.Connect(ip, port);
             config.AppSettings.Settings["PORT"].Value = port;
             config.AppSettings.Settings["IP"].Value = ip;
             config.Save(ConfigurationSaveMode.Modified);
@@ -45,17 +48,20 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Closes the current window</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine("Cancle CLicked");
-            string g = lblIP.Text.ToString();
-            this.Close();
-        }
+        { this.Close();}
 
+
+        /// <summary>
+        /// Gets the default network settings from the AppConfig file</summary>
         public void ReadDefaultSettings()
         {
-            this.sPORT =(config.AppSettings.Settings["Port"].Value);
-            this.sIP = (config.AppSettings.Settings["IP"].Value);
+            this.PORT =(config.AppSettings.Settings["Port"].Value);
+            this.IP = (config.AppSettings.Settings["IP"].Value);
         }
     }
 }
