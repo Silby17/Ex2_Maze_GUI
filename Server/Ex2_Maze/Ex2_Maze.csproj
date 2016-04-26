@@ -142,6 +142,7 @@
   <ItemGroup>
     <Resource Include="conIcon.png" />
     <Content Include="Dependencies\Xceed.Wpf.Toolkit.dll" />
+    <Resource Include="mazeIcon.ico" />
     <Content Include="sovtoda.wav" />
     <Resource Include="connectionInfo.txt" />
     <Content Include="Krewella - Enjoy The Ride %28Vicetone Remix%29.mp3" />

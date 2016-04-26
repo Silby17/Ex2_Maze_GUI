@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
+        Icon="mazeIcon.ico"
         mc:Ignorable="d"
         Title="Maze Game" Height="350" Width="525" DataContext="{Binding}" >
     <Window.Background>

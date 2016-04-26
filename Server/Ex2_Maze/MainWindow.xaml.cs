@@ -30,8 +30,6 @@ namespace Ex2_Maze
         {
             this.viewModel = new ViewModel(new Model(new TelnetClient()));
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            Uri iconUri = new Uri(Directory.GetCurrentDirectory() + "/mazeIcon.png");
-            this.Icon = BitmapFrame.Create(iconUri);
             InitializeComponent();
             DataContext = viewModel;
             string musicPath = Directory.GetCurrentDirectory();
@@ -60,6 +58,7 @@ namespace Ex2_Maze
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             Play playerWindow = new Play(viewModel);
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             playerWindow.ShowDialog();
         }
 

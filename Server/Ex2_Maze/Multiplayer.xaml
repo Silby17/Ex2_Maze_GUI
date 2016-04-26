@@ -6,6 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
+        Icon="mazeIcon.ico"
         KeyDown="OnKeyDownHandler"
         Title="Multiplayer" Height="1000" Width="1500">
 
