@@ -24,7 +24,7 @@
         Width="100"
         Height="40"
         Click="Multiplayer_Click" Margin="294,10,123,269" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10">Created by: Yossi Silberhaft and Nava Shemoul</Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="10" Foreground="White">Created by: Yossi Silberhaft and Nava Shemoul</Label>
         
 
     </Grid> 

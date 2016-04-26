@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Ex2_Maze
 {
@@ -11,9 +12,12 @@ namespace Ex2_Maze
     /// </summary>
     public partial class Multiplayer : Window
     {
-        private Random rand;
         ViewModel viewModel;
 
+
+        /// <summary>
+        /// Constructor Method that receives the ViewModel</summary>
+        /// <param name="vm">The ViewModel of the program</param>
         public Multiplayer(ViewModel vm)
         {
             this.viewModel = vm;
@@ -21,9 +25,13 @@ namespace Ex2_Maze
             InitializeComponent();
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
             //MusicPlayer.Play();
-
         }
        
+
+        /// <summary>
+        /// This is the OnClick handler for the Start button</summary>
+        /// <param name="sender">who clicked</param>
+        /// <param name="e">Passed Params</param>
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.VM_Connected == false)
@@ -43,7 +51,7 @@ namespace Ex2_Maze
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
                 {
-                    if(txtbMaze.Text == "")
+                    if (txtbMaze.Text == "")
                     {
                         MessageBox.Show("Please enter in a Game Name");
                     }
@@ -52,12 +60,21 @@ namespace Ex2_Maze
                         string mazeName = txtbMaze.Text;
                         string gen = "3 ";
                         gen += mazeName;
-                        viewModel.Command(gen);
-                        InitializeComponent();
-                        myMaze.ItemsSource = viewModel.VM_MyMaze;
-                        plr2.ItemsSource = viewModel.VM_Player2Maze;
+                        ProgIndicator.IsBusy = true;
+                        Task.Factory.StartNew(() =>
+                        {
+                            viewModel.Command(gen);
+                        }
+                         ).ContinueWith((task) =>
+                         {
+                             ProgIndicator.IsBusy = false;
+
+                             InitializeComponent();
+                             myMaze.ItemsSource = viewModel.VM_MyMaze;
+                             plr2.ItemsSource = viewModel.VM_Player2Maze;
+                         }, TaskScheduler.FromCurrentSynchronizationContext()
+            );
                     }
-                    
                 }
             }
         }
