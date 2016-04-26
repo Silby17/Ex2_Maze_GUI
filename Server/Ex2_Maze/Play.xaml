@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
         KeyDown="OnKeyDownHandler"
-        Title="Play" Height="500" Width="500" >
+        Title="Play" Height="1000" Width="1000" >
 
     <Window.Resources>
         <DataTemplate x:Key="DataTemplate_Level2">

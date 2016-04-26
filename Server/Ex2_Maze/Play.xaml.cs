@@ -26,9 +26,13 @@ namespace Ex2_Maze
         ViewModel viewModel;
         GeneralMaze<int> currentMaze;
         JPosition currentNode;
+        private int WIDTH;
+        private int HEIGHT;
 
         public Play(ViewModel vm)
         {
+            this.WIDTH  = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Width"]);
+            this.HEIGHT = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Bredth"]);
             this.viewModel = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();

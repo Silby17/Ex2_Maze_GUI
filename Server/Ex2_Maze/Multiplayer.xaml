@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
         KeyDown="OnKeyDownHandler"
-        Title="Multiplayer" Height="500" Width="500">
+        Title="Multiplayer" Height="1000" Width="1500">
 
     <Window.Resources>
 

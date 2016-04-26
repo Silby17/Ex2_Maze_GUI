@@ -2,11 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 namespace Ex2_Maze
@@ -26,6 +21,8 @@ namespace Ex2_Maze
         public GeneralMaze<int> player2GenMaze { get; set; }
         public GeneralMaze<int> genMaze { get; set; }
         public JPosition currentNode { get; set; }
+        private int WIDTH;
+        private int HEIGHT;
         
         
 
@@ -37,6 +34,8 @@ namespace Ex2_Maze
         public Model(ITelnetClient telnetClient)
         {
             this.telnetClient = telnetClient;
+            this.WIDTH = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Width"]);
+            this.HEIGHT = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Bredth"]);
         }
 
 
@@ -51,7 +50,6 @@ namespace Ex2_Maze
             this.telnetClient.Connect(ip, port);
             this.Connected = telnetClient.Connected;
         }
-
 
 
        /// <summary>
@@ -159,10 +157,10 @@ namespace Ex2_Maze
         public List<List<int>> MakeMazeList(GeneralMaze<int> maze)
         {
             List<List<int>> list = new List<List<int>>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < this.WIDTH; i++)
             {
                 list.Add(new List<int>());
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < this.HEIGHT; j++)
                 {
                     list[i].Add((int)Char.GetNumericValue(maze.Maze[i * 5 + j]));
                 }
@@ -174,7 +172,6 @@ namespace Ex2_Maze
             int eRow = maze.End.Row;
             int eCol = maze.End.Col;
             list[eRow][eCol] = 9;
-
             return list;
         }
 
