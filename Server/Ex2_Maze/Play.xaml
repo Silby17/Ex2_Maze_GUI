@@ -21,7 +21,7 @@
                 <DataTrigger Binding="{Binding }" Value="9">
                     <Setter TargetName="Background" Property="Background" Value="Green"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=lst, Mode=OneWay}" Value="7">
+                <DataTrigger Binding="{Binding}" Value="7">
                     <Setter TargetName="Background" Property="Background" Value="blue"/>
                 </DataTrigger>
             </DataTemplate.Triggers>
