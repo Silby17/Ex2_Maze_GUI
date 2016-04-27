@@ -25,7 +25,6 @@ namespace Ex2_Maze
         private int HEIGHT;
         
         
-
         /// <summary>
         /// Constructor method that will get a new instance of
         /// TelnetClient which will be in charge of communication
