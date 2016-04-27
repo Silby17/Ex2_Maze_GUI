@@ -31,6 +31,7 @@ namespace Ex2_Maze
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             DataContext = viewModel;
+            //Finds the path of the song and plays it
             string fileName = "Krewella - Enjoy_The_Ride.wav";
             string path = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
             SoundPlayer MusicPlayer = new SoundPlayer(path);
