@@ -37,10 +37,12 @@ namespace Ex2_Maze
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.MazeName = "";
+            /**
             string fileName = "Shuv Toda.wav";
             string path = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
             this.MusicPlayer = new SoundPlayer(path);
             MusicPlayer.Play();
+            **/
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
