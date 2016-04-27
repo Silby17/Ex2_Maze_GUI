@@ -129,14 +129,15 @@ namespace Ex2_Maze
             }
             else if(e.Key == Key.Right)
             {
+                viewModel.Move("right");
             }
             else if (e.Key == Key.Down)
             {
-
+                viewModel.Move("down");
             }
             else if (e.Key == Key.Left)
             {
-
+                viewModel.Move("left");
             }            
         }
     }  
