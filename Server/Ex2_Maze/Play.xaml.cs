@@ -27,6 +27,7 @@ namespace Ex2_Maze
         private string MazeName;
         private int WIDTH;
         private int HEIGHT;
+        private SoundPlayer MusicPlayer;
 
         public Play(ViewModel vm)
         {
@@ -36,9 +37,10 @@ namespace Ex2_Maze
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.MazeName = "";
-
-            //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
-            //MusicPlayer.Play();
+            string fileName = "Shuv Toda.wav";
+            string path = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
+            this.MusicPlayer = new SoundPlayer(path);
+            MusicPlayer.Play();
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
@@ -83,7 +85,9 @@ namespace Ex2_Maze
             MessageBoxResult result = MessageBox.Show("Do you want to close this window?",
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
-            {this.Close();}
+            {
+                this.MusicPlayer.Stop();
+                this.Close();}
         }
 
 

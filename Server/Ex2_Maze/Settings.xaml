@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ex2_Maze"
         mc:Ignorable="d"
+        Icon="conIcon.ico"
         Title="Settings" Height="222" Width="210">
     <Window.Background>
         <ImageBrush ImageSource="settings.jpg"/>

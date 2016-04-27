@@ -140,13 +140,11 @@
     <Resource Include="Traquair_House_Maze.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="conIcon.png" />
+    <Resource Include="conIcon.ico" />
     <Content Include="Dependencies\Xceed.Wpf.Toolkit.dll" />
     <Resource Include="mazeIcon.ico" />
+    <Content Include="Enjoy_The_Ride.wav" />
     <Content Include="sovtoda.wav" />
-    <Resource Include="connectionInfo.txt" />
-    <Content Include="Krewella - Enjoy The Ride %28Vicetone Remix%29.mp3" />
-    <Content Include="Krewella_-_Enjoy_The_Ride_Vicetone_Remix_.wav" />
     <Resource Include="settings.jpg" />
   </ItemGroup>
   <ItemGroup>
