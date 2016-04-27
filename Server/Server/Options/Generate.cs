@@ -32,8 +32,11 @@ namespace Server.Options
             string name = strings[1];
             int type = Int32.Parse(strings[2]);
             this.mazeName = name;
+            if(mazeList.ContainsKey(name))
+            {
+                mazeList.Remove(name);
+            }
             GenerateMaze(name, type);
-            
         }
 
 
