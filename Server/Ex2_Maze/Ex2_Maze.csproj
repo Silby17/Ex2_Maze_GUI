@@ -140,11 +140,11 @@
     <Resource Include="Traquair_House_Maze.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Krewella - Enjoy_The_Ride.wav" />
+    <Content Include="Shuv Toda.wav" />
     <Resource Include="conIcon.ico" />
     <Content Include="Dependencies\Xceed.Wpf.Toolkit.dll" />
     <Resource Include="mazeIcon.ico" />
-    <Content Include="Enjoy_The_Ride.wav" />
-    <Content Include="sovtoda.wav" />
     <Resource Include="settings.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,7 @@ namespace Ex2_Maze
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             DataContext = viewModel;
-            string fileName = "Enjoy_The_Ride.wav";
+            string fileName = "Krewella - Enjoy_The_Ride.wav";
             string path = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
             SoundPlayer MusicPlayer = new SoundPlayer(path);
             MusicPlayer.Play();
