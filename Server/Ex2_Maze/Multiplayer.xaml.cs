@@ -69,7 +69,6 @@ namespace Ex2_Maze
                          ).ContinueWith((task) =>
                          {
                              ProgIndicator.IsBusy = false;
-
                              InitializeComponent();
                              myMaze.ItemsSource = viewModel.VM_MyMaze;
                              plr2.ItemsSource = viewModel.VM_Player2Maze;

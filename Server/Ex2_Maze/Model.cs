@@ -144,6 +144,8 @@ namespace Ex2_Maze
             if (direction == "down" && currentNode.Row != this.HEIGHT-1)
             {
                 currentNode.Row = currentNode.Row + 1;
+                maze[currentNode.Row][currentNode.Col] = 7;
+                Publish("Maze");
             }
 
             //right

@@ -139,7 +139,8 @@ namespace Ex2_Maze
             else if (e.Key == Key.Left)
             {
                 viewModel.Move("left");
-            }            
+            }
+            lst.Items.Refresh();
         }
     }  
 }

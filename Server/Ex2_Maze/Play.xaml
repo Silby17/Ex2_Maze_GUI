@@ -37,7 +37,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <DockPanel>
+    <DockPanel KeyDown="OnKeyDownHandler">
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
@@ -49,9 +49,10 @@
                 <ColumnDefinition Width="1*"  />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
-            <Grid KeyDown="OnKeyDownHandler" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <ItemsControl Grid.Row="1" Grid.Column="1"  x:Name="lst" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
             </Grid>
+            
             <WrapPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="Start" Click="Start_Click" FontSize="15" MinHeight="30" MinWidth="90"/>
                 <Button Content="Suggestion" Click="Suggestion_Click"  FontSize="15" MinHeight="30" MinWidth="90"/>
