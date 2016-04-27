@@ -88,7 +88,7 @@ namespace Ex2_Maze
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                this.MusicPlayer.Stop();
+                //this.MusicPlayer.Stop();
                 this.Close();}
         }
 
