@@ -137,6 +137,7 @@ namespace Ex2_Maze
                 currentNode.Row = currentNode.Row - 1;
             }
             maze[currentNode.Row][currentNode.Col] = 5;
+            Publish("Maze");
         }
 
 
@@ -184,6 +185,7 @@ namespace Ex2_Maze
             JavaScriptSerializer ser = new JavaScriptSerializer();
             this.genMaze = ser.Deserialize<GeneralMaze<int>>(Generate);
             this.maze = MakeMazeList(this.genMaze);
+            this.currentNode = this.genMaze.Start;
         }
     }
 }
