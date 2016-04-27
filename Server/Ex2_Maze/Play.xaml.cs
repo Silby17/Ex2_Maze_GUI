@@ -34,6 +34,7 @@ namespace Ex2_Maze
             this.WIDTH  = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Width"]);
             this.HEIGHT = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Bredth"]);
             this.viewModel = vm;
+            this.DataContext = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.MazeName = "";

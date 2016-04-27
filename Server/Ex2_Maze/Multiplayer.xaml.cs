@@ -21,6 +21,7 @@ namespace Ex2_Maze
         public Multiplayer(ViewModel vm)
         {
             this.viewModel = vm;
+            this.DataContext = vm;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
