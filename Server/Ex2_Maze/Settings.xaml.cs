@@ -40,7 +40,7 @@ namespace Ex2_Maze
         {
             string ip = lblIP.Text.ToString();
             string port = lblPORT.Text.ToString();
-            viewModel.Connect(ip, port);
+           viewModel.Connect(ip, port);
             config.AppSettings.Settings["PORT"].Value = port;
             config.AppSettings.Settings["IP"].Value = ip;
             config.Save(ConfigurationSaveMode.Modified);

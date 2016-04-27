@@ -16,6 +16,9 @@
                 <DataTrigger Binding="{Binding}" Value="1">
                     <Setter TargetName="Background" Property="Background" Value="Black"/>
                 </DataTrigger>
+                <DataTrigger Binding="{Binding}" Value="5">
+                    <Setter TargetName="Background" Property="Background" Value="Red"/>
+                </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplate_Level1">
@@ -41,7 +44,6 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
-
             <Grid Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <ItemsControl Grid.Row="1" Grid.Column="1"  x:Name="lst" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
             </Grid>
