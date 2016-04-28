@@ -2,7 +2,7 @@
 using System.Text;
 using System.Net;
 using System;
-
+using System.Threading;
 
 namespace Ex2_Maze
 {
@@ -14,7 +14,8 @@ namespace Ex2_Maze
         private IPEndPoint ipep;
         public string generated { get; set; }
         public Boolean Connected { get; set; }
-        
+        private Thread rece;
+        private bool runThread;
 
         public TelnetClient()
         {
@@ -41,9 +42,21 @@ namespace Ex2_Maze
                 Read();
             }
             catch (SocketException e) { Console.WriteLine("Unable to connect to server." + e.ToString()); }
+
+            
         }
 
+        public void StartThread()
+        {
+            runThread = true;
+            this.rece = new Thread(ReceiveThread);
+            rece.Start();
+        }
 
+        public void KillThread()
+        {
+            runThread = false;
+        }
 
         /// <summary>
         /// This will send data to the Server </summary>
@@ -72,6 +85,28 @@ namespace Ex2_Maze
                 server.Shutdown(SocketShutdown.Both);
                 server.Close();
                 return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Starts the Thread that will be in charge of incomming Data</summary>
+        public void ReceiveThread()
+        {
+            while (runThread)
+            {
+                try
+                {
+                    byte[] data = new byte[1024];
+                    int recv = server.Receive(data);
+                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                    
+                }
+                catch
+                {
+                    server.Shutdown(SocketShutdown.Both);
+                    server.Close();
+                }
             }
         }
 

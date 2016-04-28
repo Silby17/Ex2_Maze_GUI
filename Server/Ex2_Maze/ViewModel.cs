@@ -51,12 +51,12 @@ namespace Ex2_Maze
 
         public List<List<int>> VM_MyMaze
         {
-            get { return model.myMaze; }
+            get { return model.myMazeList; }
         }
 
         public List<List<int>> VM_Player2Maze
         {
-            get { return model.player2Maze; }
+            get { return model.player2MazeList; }
         }
 
 

@@ -87,7 +87,8 @@ namespace Ex2_Maze
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Do you want to close this window?",
+                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 this.Close();
@@ -101,7 +102,8 @@ namespace Ex2_Maze
             if (viewModel.VM_Connected == false)
             {
                 MessageBoxImage icon = MessageBoxImage.Error;
-                MessageBox.Show("No Connection with Server", "Connection Error", MessageBoxButton.OK, icon);
+                MessageBox.Show("No Connection with Server", "Connection Error",
+                    MessageBoxButton.OK, icon);
             }
             else
             {

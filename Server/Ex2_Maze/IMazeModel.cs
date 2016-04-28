@@ -18,8 +18,8 @@ namespace Ex2_Maze
         string Generate { get; set; }
         List<List<int>> Maze { get; set; }
         GeneralMaze<int> genMaze { get; set; }
-        List<List<int>> myMaze { get; set; }
-        List<List<int>> player2Maze { get; set; }
+        List<List<int>> myMazeList { get; set; }
+        List<List<int>> player2MazeList { get; set; }
 
     }
 }

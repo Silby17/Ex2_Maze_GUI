@@ -14,13 +14,17 @@ namespace Ex2_Maze
         public string multiplayer;
         private Boolean connected;
         private Player player;
-        public List<List<int>> maze;
-        public List<List<int>> myMaze { get; set; }
-        public List<List<int>> player2Maze { get; set; }
+        public List<List<int>> mazeList;
+        public List<List<int>> myMazeList { get; set; }
+        public List<List<int>> player2MazeList { get; set; }
+
         public GeneralMaze<int> myGenMaze { get; set; }
         public GeneralMaze<int> player2GenMaze { get; set; }
         public GeneralMaze<int> genMaze { get; set; }
+
         public JPosition currentNode { get; set; }
+        public JPosition myCurrentNode { get; set; }
+        public JPosition plyr2CurrentNode { get; set; }
         public JPosition endNode { get; set; }
         private int WIDTH;
         private int HEIGHT;
@@ -121,25 +125,35 @@ namespace Ex2_Maze
         }
 
 
-
         public List<List<int>> Maze
         {
-            get { return maze; }
-            set { maze = value;
+            get { return mazeList; }
+            set { mazeList = value;
                 Publish("Maze");
             }
         }
+
+
 
         public void MovePlayer(string direction, string sender)
         {
             if(sender == "play")
             {
-                Move(this.maze, direction);
-                //Publish("Maze");
+                Move(this.mazeList, direction, this.currentNode, this.endNode);
             }
+            else if(sender == "myMove")
+            {
+                Move(this.myMazeList, direction, myCurrentNode, myGenMaze.End);
+                telnetClient.Send("4 " + direction);
+            }
+            else if(sender == "player2Move")
+            {
+                Move(this.player2MazeList, direction, plyr2CurrentNode, player2GenMaze.End);
+            }
+            
         }
 
-        public void Move(List<List<int>> maze, string direction)
+        public void Move(List<List<int>> maze, string direction, JPosition current, JPosition end)
         {
             //up
             if(direction == "up" && currentNode.Row != 0 && maze[currentNode.Row-1][currentNode.Col] != 1)
@@ -195,9 +209,15 @@ namespace Ex2_Maze
         {
             JavaScriptSerializer ser = new JavaScriptSerializer();
             this.player = ser.Deserialize<Player>(multiplayer);
-            this.player2Maze = MakeMazeList(player.Other);
+            //Sets the Mazes of my maze and my opponents maze
+            this.myGenMaze = player.You;
+            this.player2GenMaze = player.Other;
+
+            //Makes a list from Opponents maze
+            this.player2MazeList = MakeMazeList(player.Other);
             Publish("Player2Maze");
-            this.myMaze = MakeMazeList(player.You);
+            //Makes a list from my Maze
+            this.myMazeList = MakeMazeList(player.You);
             Publish("MyMaze");
         }
 
@@ -211,7 +231,7 @@ namespace Ex2_Maze
                 list.Add(new List<int>());
                 for (int j = 0; j < this.HEIGHT; j++)
                 {
-                    list[i].Add((int)Char.GetNumericValue(maze.Maze[i * 5 + j]));
+                    list[i].Add((int)Char.GetNumericValue(maze.Maze[i * 8 + j]));
                 }
             }
             int sCol = maze.Start.Col;
@@ -233,7 +253,7 @@ namespace Ex2_Maze
         {
             JavaScriptSerializer ser = new JavaScriptSerializer();
             this.genMaze = ser.Deserialize<GeneralMaze<int>>(Generate);
-            this.maze = MakeMazeList(this.genMaze);
+            this.mazeList = MakeMazeList(this.genMaze);
             this.currentNode = this.genMaze.Start;
             this.endNode = this.genMaze.End;
         }
