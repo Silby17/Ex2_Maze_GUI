@@ -13,8 +13,7 @@ namespace Ex2_Maze
         public event PropertyChangedEventHandler PropertyChanged;
         public GeneralMaze<int> playerMaze;
         private IMazeModel model;
-
-
+        
 
         public ViewModel(IMazeModel m)
         {
@@ -63,6 +62,7 @@ namespace Ex2_Maze
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+
 
         private decimal _numValue = -1;
         public decimal NumericValue

@@ -94,7 +94,7 @@ namespace Ex2_Maze
                 }
             }
         }
-
+        
 
         /// <summary>
         /// OnClick handler for for the Exit button</summary>

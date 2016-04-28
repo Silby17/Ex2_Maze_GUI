@@ -133,51 +133,55 @@ namespace Ex2_Maze
 
         public void Move(string direction)
         {
-            //up
+            //UP
             if(direction == "up" && currentNode.Row != 0)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row - 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 Publish("Maze");
             }
 
             //down
             if (direction == "down" && currentNode.Row != this.HEIGHT-1)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row + 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 Publish("Maze");
             }
 
             //right
             if (direction == "right" && currentNode.Col != this.WIDTH - 1)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col + 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 Publish("Maze");
             }
 
             //left
             if (direction == "left" && currentNode.Col != 0)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col - 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 Publish("Maze");
             }
         }
