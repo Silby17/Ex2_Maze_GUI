@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Web.Script.Serialization;
+using System.ComponentModel;
 
 namespace Ex2_Maze
 {
@@ -38,6 +39,10 @@ namespace Ex2_Maze
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             this.MazeName = "";
+            this.viewModel.PropertyChanged += delegate (object seder, PropertyChangedEventArgs e)
+            {
+                ReceiveEvent(e.PropertyName);
+            };
             /**
             string fileName = "Shuv Toda.wav";
             string path = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
@@ -45,6 +50,18 @@ namespace Ex2_Maze
             MusicPlayer.Play();
             **/
         }
+
+
+        public void ReceiveEvent(string eventData)
+        {
+            if(eventData == "VM_Winner")
+            {
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show("You have reached the end!", "You Won", MessageBoxButton.OK, icon);
+                this.Close();
+            }
+        }
+
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {

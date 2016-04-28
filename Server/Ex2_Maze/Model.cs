@@ -21,6 +21,7 @@ namespace Ex2_Maze
         public GeneralMaze<int> player2GenMaze { get; set; }
         public GeneralMaze<int> genMaze { get; set; }
         public JPosition currentNode { get; set; }
+        public JPosition endNode { get; set; }
         private int WIDTH;
         private int HEIGHT;
         
@@ -136,6 +137,10 @@ namespace Ex2_Maze
             if(direction == "up" && currentNode.Row != 0)
             {
                 currentNode.Row = currentNode.Row - 1;
+                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
+                {
+                    Publish("Winner");
+                }
                 maze[currentNode.Row][currentNode.Col] = 7;
                 Publish("Maze");
             }
@@ -144,6 +149,10 @@ namespace Ex2_Maze
             if (direction == "down" && currentNode.Row != this.HEIGHT-1)
             {
                 currentNode.Row = currentNode.Row + 1;
+                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
+                {
+                    Publish("Winner");
+                }
                 maze[currentNode.Row][currentNode.Col] = 7;
                 Publish("Maze");
             }
@@ -152,6 +161,10 @@ namespace Ex2_Maze
             if (direction == "right" && currentNode.Col != this.WIDTH - 1)
             {
                 currentNode.Col = currentNode.Col + 1;
+                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
+                {
+                    Publish("Winner");
+                }
                 maze[currentNode.Row][currentNode.Col] = 7;
                 Publish("Maze");
             }
@@ -160,6 +173,10 @@ namespace Ex2_Maze
             if (direction == "left" && currentNode.Col != 0)
             {
                 currentNode.Col = currentNode.Col - 1;
+                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
+                {
+                    Publish("Winner");
+                }
                 maze[currentNode.Row][currentNode.Col] = 7;
                 Publish("Maze");
             }
@@ -211,6 +228,7 @@ namespace Ex2_Maze
             this.genMaze = ser.Deserialize<GeneralMaze<int>>(Generate);
             this.maze = MakeMazeList(this.genMaze);
             this.currentNode = this.genMaze.Start;
+            this.endNode = this.genMaze.End;
         }
     }
 }

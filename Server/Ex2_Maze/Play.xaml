@@ -12,14 +12,18 @@
             <Label Content="{Binding }" Width="70" Height="70" HorizontalContentAlignment="Center" x:Name="Background">
             </Label>
             <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding}" Value="0">
+                    <Setter TargetName="Background" Property="Content" Value=" "/>
+                </DataTrigger>
                 <DataTrigger Binding="{Binding}" Value="1">
                     <Setter TargetName="Background" Property="Background" Value="Black"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" Value="5">
-                    <Setter TargetName="Background" Property="Background" Value="Red"/>
+                    <Setter TargetName="Background" Property="Background" Value="Green"/>
+                    <Setter TargetName="Background" Property="Content" Value=" "/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding }" Value="9">
-                    <Setter TargetName="Background" Property="Background" Value="Green"/>
+                    <Setter TargetName="Background" Property="Background" Value="Red"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" Value="7">
                     <Setter TargetName="Background" Property="Background" Value="blue"/>
