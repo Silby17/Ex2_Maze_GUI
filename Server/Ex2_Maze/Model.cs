@@ -134,7 +134,7 @@ namespace Ex2_Maze
         public void Move(string direction)
         {
             //up
-            if(direction == "up" && currentNode.Row != 0)
+            if(direction == "up" && currentNode.Row != 0 && maze[currentNode.Row-1][currentNode.Col] != 1)
             {
                 currentNode.Row = currentNode.Row - 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
@@ -146,7 +146,7 @@ namespace Ex2_Maze
             }
 
             //down
-            if (direction == "down" && currentNode.Row != this.HEIGHT-1)
+            if (direction == "down" && currentNode.Row != this.HEIGHT-1 && maze[currentNode.Row + 1][currentNode.Col] != 1)
             {
                 currentNode.Row = currentNode.Row + 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
@@ -158,7 +158,7 @@ namespace Ex2_Maze
             }
 
             //right
-            if (direction == "right" && currentNode.Col != this.WIDTH - 1)
+            if (direction == "right" && currentNode.Col != this.WIDTH - 1 && maze[currentNode.Row][currentNode.Col+1] != 1)
             {
                 currentNode.Col = currentNode.Col + 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
@@ -170,7 +170,7 @@ namespace Ex2_Maze
             }
 
             //left
-            if (direction == "left" && currentNode.Col != 0)
+            if (direction == "left" && currentNode.Col != 0 && maze[currentNode.Row][currentNode.Col-1]!=1)
             {
                 currentNode.Col = currentNode.Col - 1;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
