@@ -29,6 +29,11 @@ namespace Ex2_Maze
             model.Send(s);
         }
 
+        public void MovePlayer(string direction, string sender)
+        {
+            model.MovePlayer(direction, sender);
+        }
+
 
         public string VW_Generate
         {
@@ -90,7 +95,7 @@ namespace Ex2_Maze
 
         public void Move(string direction)
         {
-            model.Move(direction);
+            //model.Move(direction);
         }
     }
 }
