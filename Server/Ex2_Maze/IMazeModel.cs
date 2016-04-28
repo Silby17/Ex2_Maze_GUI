@@ -13,6 +13,7 @@ namespace Ex2_Maze
         void Disconnect();
         void Send(string str);
         void MovePlayer(string direction, string sender);
+        void StartThread();
 
         Boolean Connected { get; set; }
         string Generate { get; set; }

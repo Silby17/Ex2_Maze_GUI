@@ -1,21 +1,26 @@
-﻿using System.Net.Sockets;
+﻿using System.Threading;
+using System.Net.Sockets;
 using System.Text;
 using System.Net;
 using System;
-using System.Threading;
+using System.ComponentModel;
 
 namespace Ex2_Maze
 {
     public class TelnetClient : ITelnetClient
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private int PORT;
         private IPAddress IP;
         private Socket server;
         private IPEndPoint ipep;
         public string generated { get; set; }
         public Boolean Connected { get; set; }
+        public string playerMove { get; set; }
         private Thread rece;
         private bool runThread;
+        
+
 
         public TelnetClient()
         {
@@ -45,6 +50,15 @@ namespace Ex2_Maze
 
             
         }
+
+        public void Publish(string propName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+        }
+
 
         public void StartThread()
         {
@@ -95,18 +109,11 @@ namespace Ex2_Maze
         {
             while (runThread)
             {
-                try
-                {
                     byte[] data = new byte[1024];
                     int recv = server.Receive(data);
                     string stringData = Encoding.ASCII.GetString(data, 0, recv);
-                    
-                }
-                catch
-                {
-                    server.Shutdown(SocketShutdown.Both);
-                    server.Close();
-                }
+                    playerMove = stringData;
+                    Publish("Player_Moved");
             }
         }
 

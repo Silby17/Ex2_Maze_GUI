@@ -65,10 +65,14 @@ namespace Ex2_Maze
                         string mazeName = txtbMaze.Text;
                         string gen = "3 ";
                         gen += mazeName;
+                        //Shows the progress indicator
                         ProgIndicator.IsBusy = true;
+                        //Disables the input box
+                        txtbMaze.IsEnabled = false;
                         Task.Factory.StartNew(() =>
                         {
                             viewModel.Command(gen);
+                            viewModel.model.StartThread();
                         }
                          ).ContinueWith((task) =>
                          {
@@ -80,9 +84,12 @@ namespace Ex2_Maze
                          }, TaskScheduler.FromCurrentSynchronizationContext()
             );
                     }
+                    
                 }
             }
+            
         }
+
 
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -117,6 +124,7 @@ namespace Ex2_Maze
         /// <param name="e"></param>
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
+            if (!MyGrid.IsFocused) { MyGrid.Focus(); }
             if (e.Key == Key.Up)
             {
                 viewModel.MovePlayer("up", "myMove");

@@ -1,8 +1,9 @@
-﻿using Ex1_Maze;
-using System;
+﻿using System.Web.Script.Serialization;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Web.Script.Serialization;
+using Ex1_Maze;
+using System;
+
 
 namespace Ex2_Maze
 {
@@ -40,9 +41,23 @@ namespace Ex2_Maze
             this.telnetClient = telnetClient;
             this.WIDTH = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Width"]);
             this.HEIGHT = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Bredth"]);
+            this.telnetClient.PropertyChanged += OnEventHandler;
         }
 
+        public void OnEventHandler(object sender, PropertyChangedEventArgs args)
+        {
+            if(sender is TelnetClient)
+            {
+                if (args.PropertyName.Equals("Player_Moved"))
+                {
+                    string playerMove = telnetClient.playerMove;
+                    JavaScriptSerializer ser = new JavaScriptSerializer();
+                    Play playe = ser.Deserialize<Play>(playerMove);
 
+                    string sss = "sada";
+                }
+            }
+        }
 
         /// <summary>
         /// This will send params to the TelnetClinet 
@@ -55,6 +70,11 @@ namespace Ex2_Maze
             this.Connected = telnetClient.Connected;
         }
 
+
+        public void StartThread()
+        {
+            telnetClient.StartThread();
+        }
 
        /// <summary>
        /// This method will pass on command to the TelnetClient
@@ -71,6 +91,10 @@ namespace Ex2_Maze
             {
                 this.telnetClient.Send(toSend);
                 Multiplay = telnetClient.Read();
+            }
+            else if(toSend[0].Equals('4'))
+            {
+                this.telnetClient.Send(toSend);
             }
         }
        
@@ -149,57 +173,45 @@ namespace Ex2_Maze
             else if(sender == "player2Move")
             {
                 Move(this.player2MazeList, direction, plyr2CurrentNode, player2GenMaze.End);
-            }
-            
+            }   
         }
 
-        public void Move(List<List<int>> maze, string direction, JPosition current, JPosition end)
+
+
+        public void Move(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode)
         {
-            //up
+            //UP
             if(direction == "up" && currentNode.Row != 0 && maze[currentNode.Row-1][currentNode.Col] != 1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row - 1;
                 maze[currentNode.Row][currentNode.Col] = 5;
-                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
-                {
-                    Publish("Winner");
-                }
             }
-            //down
+            //DOWN
             if (direction == "down" && currentNode.Row != this.HEIGHT-1 && maze[currentNode.Row + 1][currentNode.Col] != 1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row + 1;
                 maze[currentNode.Row][currentNode.Col] = 5;
-                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
-                {
-                    Publish("Winner");
-                }
             }
-
-            //right
+            //RIGHT
             if (direction == "right" && currentNode.Col != this.WIDTH - 1 && maze[currentNode.Row][currentNode.Col+1] != 1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col + 1;
                 maze[currentNode.Row][currentNode.Col] = 5;
-                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
-                {
-                    Publish("Winner");
-                }
             }
-
-            //left
+            //LEFT
             if (direction == "left" && currentNode.Col != 0 && maze[currentNode.Row][currentNode.Col-1]!=1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col - 1;
                 maze[currentNode.Row][currentNode.Col] = 5;
-                if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
-                {
-                    Publish("Winner");
-                }
+                
+            }
+            if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
+            {
+                Publish("Winner");
             }
         }
 
@@ -212,6 +224,8 @@ namespace Ex2_Maze
             //Sets the Mazes of my maze and my opponents maze
             this.myGenMaze = player.You;
             this.player2GenMaze = player.Other;
+            myCurrentNode = player.You.Start;
+            plyr2CurrentNode = player.Other.Start;
 
             //Makes a list from Opponents maze
             this.player2MazeList = MakeMazeList(player.Other);

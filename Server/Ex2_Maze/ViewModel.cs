@@ -12,7 +12,7 @@ namespace Ex2_Maze
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public GeneralMaze<int> playerMaze;
-        private IMazeModel model;
+        public IMazeModel model;
         
 
         public ViewModel(IMazeModel m)
