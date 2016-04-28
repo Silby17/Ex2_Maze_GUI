@@ -18,7 +18,7 @@ namespace Server.Options
         private Player playerToReturnTo;
         private Game currentGame;
 
-
+        public Play() { }
         /// <summary>
         /// Constructor Method that will get a list or arguments, the client that 
         /// send the request and the List of Mazes if needed</summary>
