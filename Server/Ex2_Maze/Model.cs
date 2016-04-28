@@ -130,55 +130,62 @@ namespace Ex2_Maze
             }
         }
 
+        public void MovePlayer(string direction, string sender)
+        {
+            if(sender == "play")
+            {
+                Move(this.maze, direction);
+                //Publish("Maze");
+            }
+        }
 
-        public void Move(string direction)
+        public void Move(List<List<int>> maze, string direction)
         {
             //up
             if(direction == "up" && currentNode.Row != 0 && maze[currentNode.Row-1][currentNode.Col] != 1)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row - 1;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
-                Publish("Maze");
             }
-
             //down
             if (direction == "down" && currentNode.Row != this.HEIGHT-1 && maze[currentNode.Row + 1][currentNode.Col] != 1)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row + 1;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
-                Publish("Maze");
             }
 
             //right
             if (direction == "right" && currentNode.Col != this.WIDTH - 1 && maze[currentNode.Row][currentNode.Col+1] != 1)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col + 1;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
-                Publish("Maze");
             }
 
             //left
             if (direction == "left" && currentNode.Col != 0 && maze[currentNode.Row][currentNode.Col-1]!=1)
             {
+                maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col - 1;
+                maze[currentNode.Row][currentNode.Col] = 5;
                 if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
                 {
                     Publish("Winner");
                 }
-                maze[currentNode.Row][currentNode.Col] = 7;
-                Publish("Maze");
             }
         }
 

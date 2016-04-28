@@ -12,7 +12,7 @@ namespace Ex2_Maze
         void Connect(string ip, int port);
         void Disconnect();
         void Send(string str);
-        void Move(string direction);
+        void MovePlayer(string direction, string sender);
 
         Boolean Connected { get; set; }
         string Generate { get; set; }

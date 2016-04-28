@@ -94,7 +94,7 @@ namespace Ex2_Maze
                 }
             }
         }
-
+        
 
         /// <summary>
         /// OnClick handler for for the Exit button</summary>
@@ -143,19 +143,19 @@ namespace Ex2_Maze
         {
             if(e.Key == Key.Up)
             {
-                viewModel.Move("up");
+                viewModel.MovePlayer("up", "play");
             }
             else if(e.Key == Key.Right)
             {
-                viewModel.Move("right");
+                viewModel.MovePlayer("right", "play");
             }
             else if (e.Key == Key.Down)
             {
-                viewModel.Move("down");
+                viewModel.MovePlayer("down", "play");
             }
             else if (e.Key == Key.Left)
             {
-                viewModel.Move("left");
+                viewModel.MovePlayer("left", "play");
             }
             lst.Items.Refresh();
         }

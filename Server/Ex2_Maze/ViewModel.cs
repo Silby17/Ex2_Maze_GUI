@@ -13,8 +13,7 @@ namespace Ex2_Maze
         public event PropertyChangedEventHandler PropertyChanged;
         public GeneralMaze<int> playerMaze;
         private IMazeModel model;
-
-
+        
 
         public ViewModel(IMazeModel m)
         {
@@ -28,6 +27,11 @@ namespace Ex2_Maze
         public void Command(string s)
         {
             model.Send(s);
+        }
+
+        public void MovePlayer(string direction, string sender)
+        {
+            model.MovePlayer(direction, sender);
         }
 
 
@@ -64,6 +68,7 @@ namespace Ex2_Maze
             }
         }
 
+
         private decimal _numValue = -1;
         public decimal NumericValue
         {
@@ -90,7 +95,7 @@ namespace Ex2_Maze
 
         public void Move(string direction)
         {
-            model.Move(direction);
+            //model.Move(direction);
         }
     }
 }

@@ -13,8 +13,7 @@ namespace Ex2_Maze
     public partial class Multiplayer : Window
     {
         ViewModel viewModel;
-
-
+        
         /// <summary>
         /// Constructor Method that receives the ViewModel</summary>
         /// <param name="vm">The ViewModel of the program</param>
