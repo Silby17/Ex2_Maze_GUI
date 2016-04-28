@@ -13,6 +13,7 @@ namespace Ex2_Maze
     public partial class Multiplayer : Window
     {
         ViewModel viewModel;
+        private bool gameInMotion;
         
         /// <summary>
         /// Constructor Method that receives the ViewModel</summary>
@@ -51,7 +52,11 @@ namespace Ex2_Maze
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
                 {
-                    if (txtbMaze.Text == "")
+                    if(gameInMotion == true)
+                    {
+                        this.Close();
+                    }
+                    else if (txtbMaze.Text == "")
                     {
                         MessageBox.Show("Please enter in a Game Name");
                     }
@@ -71,6 +76,7 @@ namespace Ex2_Maze
                              InitializeComponent();
                              myMaze.ItemsSource = viewModel.VM_MyMaze;
                              plr2.ItemsSource = viewModel.VM_Player2Maze;
+                             gameInMotion = true;
                          }, TaskScheduler.FromCurrentSynchronizationContext()
             );
                     }
@@ -111,22 +117,22 @@ namespace Ex2_Maze
         {
             if (e.Key == Key.Up)
             {
-                viewModel.Command("up");
+                viewModel.MovePlayer("up", "myMove");
             }
             else if (e.Key == Key.Right)
             {
-                viewModel.Command("right");
+                viewModel.MovePlayer("right", "myMove");
             }
-            else if (e.Key == Key.Down)
+            else if(e.Key == Key.Down)
             {
-
+                viewModel.MovePlayer("down", "myMove");
             }
             else if (e.Key == Key.Left)
             {
-
+                viewModel.MovePlayer("left", "myMove");
             }
+            myMaze.Items.Refresh();
+            plr2.Items.Refresh();
         }
-
-
     }
 }

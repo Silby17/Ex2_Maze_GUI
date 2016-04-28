@@ -142,6 +142,7 @@
   <ItemGroup>
     <Content Include="Krewella - Enjoy_The_Ride.wav" />
     <Resource Include="runMan.png" />
+    <Resource Include="redMan.png" />
     <Content Include="Shuv Toda.wav" />
     <Resource Include="conIcon.ico" />
     <Content Include="Dependencies\Xceed.Wpf.Toolkit.dll" />

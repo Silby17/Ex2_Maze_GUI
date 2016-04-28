@@ -25,7 +25,6 @@
                 <DataTrigger Binding="{Binding }" Value="9">
                     <Setter TargetName="Background" Property="Background" Value="Red"/>
                     <Setter TargetName="Background" Property="Content" Value=" "/>
-
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" Value="7">
                     <Setter TargetName="Background" Property="Background" Value="{StaticResource runMan}"/>
