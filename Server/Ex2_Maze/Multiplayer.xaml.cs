@@ -13,7 +13,8 @@ namespace Ex2_Maze
     public partial class Multiplayer : Window
     {
         ViewModel viewModel;
-        private bool gameInMotion;     
+        private bool gameInMotion;
+        public string MazeName;  
              
 
         /// <summary>
@@ -83,6 +84,7 @@ namespace Ex2_Maze
                              InitializeComponent();
                              myMaze.ItemsSource = viewModel.VM_MyMaze;
                              plr2.ItemsSource = viewModel.VM_Player2Maze;
+                             this.MazeName = viewModel.model.myGenMaze
                              gameInMotion = true;
                          }, TaskScheduler.FromCurrentSynchronizationContext()
             );
@@ -176,6 +178,20 @@ namespace Ex2_Maze
         {
             viewModel.model.KillThread();
             this.Close();
+        }
+
+        /// <summary>
+        /// Event Handler that gets events from the viewModel</summary>
+        /// <param name="eventData">Event Params</param>
+        public void ReceiveEvent(string eventData)
+        {
+            //Event that the player has reached his goal point
+            if (eventData == "VM_Winner")
+            {
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show("You have reached the end!", "You Won", MessageBoxButton.OK, icon);
+                this.Close();
+            }
         }
     }
 }

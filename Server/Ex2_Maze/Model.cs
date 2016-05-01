@@ -18,7 +18,6 @@ namespace Ex2_Maze
         public string multiplayer;
         private Boolean connected;
         private Player player;
-        public List<List<int>> mazeList;
         public List<List<int>> myMazeList { get; set; }
         public List<List<int>> player2MazeList { get; set; }
 
@@ -27,7 +26,7 @@ namespace Ex2_Maze
         public GeneralMaze<int> player2GenMaze { get; set; }
         
 
-        public JPosition currentNode { get; set; }
+        public JPosition singlePlayercurrentNode { get; set; }
         public JPosition myCurrentNode { get; set; }
         public JPosition plyr2CurrentNode { get; set; }
         public JPosition endNode { get; set; }
@@ -37,6 +36,7 @@ namespace Ex2_Maze
         //Single player Members
         public GeneralMaze<int> genMaze { get; set; }
         public List<List<int>> singlePlayerList { get; set; }
+        public List<List<int>> singlePlayerSolvedList { get; set; }
 
 
         /// <summary>
@@ -155,7 +155,8 @@ namespace Ex2_Maze
             get { return solve; }
             set { solve = value;
                 ConvertSolveString();
-                Publish("Solve");
+                JPosition ans = GetBestMove(this.singlePlayerSolvedList, this.singlePlayercurrentNode);
+                singlePlayerList[ans.Row][ans.Col] = 4;
             }
         }
 
@@ -179,8 +180,8 @@ namespace Ex2_Maze
 
         public List<List<int>> Maze
         {
-            get { return mazeList; }
-            set { mazeList = value;
+            get { return singlePlayerList; }
+            set { singlePlayerList = value;
                 Publish("Maze");
             }
         }
@@ -191,7 +192,7 @@ namespace Ex2_Maze
         {
             if(sender == "play")
             {
-                Move(this.mazeList, direction, this.currentNode, this.endNode);
+                Move(this.singlePlayerList, direction, this.singlePlayercurrentNode, this.endNode);
             }
             else if(sender == "myMove")
             {
@@ -211,7 +212,7 @@ namespace Ex2_Maze
         /// <param name="currentNode"></param>
         /// <param name="endNode"></param>
         /// <returns></returns>
-        public JPosition GetBestMove(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode)
+        public JPosition GetBestMove(List<List<int>> maze, JPosition currentNode)
         {
             JPosition ans = null;
             //the longest disctance that could be
@@ -336,8 +337,8 @@ namespace Ex2_Maze
         public void ConvertGenerate()
         {
             this.genMaze = this.ser.Deserialize<GeneralMaze<int>>(Generate);
-            this.mazeList = MakeMazeList(this.genMaze);
-            this.currentNode = this.genMaze.Start;
+            this.singlePlayerList = MakeMazeList(this.genMaze);
+            this.singlePlayercurrentNode = this.genMaze.Start;
             this.endNode = this.genMaze.End;
         }
 
@@ -348,7 +349,7 @@ namespace Ex2_Maze
         public void ConvertSolveString()
         {
             this.singlePlayerSolved = this.ser.Deserialize<GeneralMaze<int>>(Solve);
-            this.singlePlayerList = MakeMazeList(this.singlePlayerSolved);
+            this.singlePlayerSolvedList = MakeMazeList(this.singlePlayerSolved);
         }
 }
 }
