@@ -82,9 +82,8 @@ namespace Ex2_Maze
                              ProgIndicator.IsBusy = false;
                              viewModel.model.StartThread();
                              InitializeComponent();
-                             myMaze.ItemsSource = viewModel.VM_MyMaze;
+                             myMaze.ItemsSource = viewModel.VM_Maze;
                              plr2.ItemsSource = viewModel.VM_Player2Maze;
-                             this.MazeName = viewModel.model.myGenMaze
                              gameInMotion = true;
                          }, TaskScheduler.FromCurrentSynchronizationContext()
             );

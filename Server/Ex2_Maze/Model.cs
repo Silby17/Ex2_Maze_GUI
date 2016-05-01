@@ -5,7 +5,6 @@ using Ex1_Maze;
 using System;
 
 
-
 namespace Ex2_Maze
 {
     public class Model : IMazeModel
@@ -13,30 +12,29 @@ namespace Ex2_Maze
         public event PropertyChangedEventHandler PropertyChanged;
         ITelnetClient telnetClient;
         JavaScriptSerializer ser;
+        private int WIDTH;
+        private int HEIGHT;
         public string generate;
         public string solve;
         public string multiplayer;
         private Boolean connected;
         private Player player;
+
+        //My General Maze and its List version
+        public GeneralMaze<int> myGeneralMaze { get; set; }
         public List<List<int>> myMazeList { get; set; }
-        public List<List<int>> player2MazeList { get; set; }
-
-        public GeneralMaze<int> myGenMaze { get; set; }
-        public GeneralMaze<int> singlePlayerSolved { get; set; }
-        public GeneralMaze<int> player2GenMaze { get; set; }
-        
-
-        public JPosition singlePlayercurrentNode { get; set; }
         public JPosition myCurrentNode { get; set; }
-        public JPosition plyr2CurrentNode { get; set; }
-        public JPosition endNode { get; set; }
-        private int WIDTH;
-        private int HEIGHT;
 
-        //Single player Members
-        public GeneralMaze<int> genMaze { get; set; }
-        public List<List<int>> singlePlayerList { get; set; }
+        //Opponents General maze and List version
+        public GeneralMaze<int> player2GeneralMaze { get; set; }
+        public List<List<int>> player2MazeList { get; set; }
+        public JPosition plyr2CurrentNode { get; set; }
+
+
+        public GeneralMaze<int> singlePlayerSolved { get; set; }
         public List<List<int>> singlePlayerSolvedList { get; set; }
+
+           
 
 
         /// <summary>
@@ -155,8 +153,8 @@ namespace Ex2_Maze
             get { return solve; }
             set { solve = value;
                 ConvertSolveString();
-                JPosition ans = GetBestMove(this.singlePlayerSolvedList, this.singlePlayercurrentNode);
-                singlePlayerList[ans.Row][ans.Col] = 4;
+                JPosition ans = GetBestMove(this.singlePlayerSolvedList, this.myCurrentNode);
+                myMazeList[ans.Row][ans.Col] = 4;
             }
         }
 
@@ -180,8 +178,8 @@ namespace Ex2_Maze
 
         public List<List<int>> Maze
         {
-            get { return singlePlayerList; }
-            set { singlePlayerList = value;
+            get { return myMazeList; }
+            set { myMazeList = value;
                 Publish("Maze");
             }
         }
@@ -192,18 +190,20 @@ namespace Ex2_Maze
         {
             if(sender == "play")
             {
-                Move(this.singlePlayerList, direction, this.singlePlayercurrentNode, this.endNode);
+                Move(myMazeList, direction, myCurrentNode, myGeneralMaze.End);
             }
             else if(sender == "myMove")
             {
-                Move(this.myMazeList, direction, myCurrentNode, myGenMaze.End);
+                Move(this.myMazeList, direction, myCurrentNode, this.myGeneralMaze.End);
                 telnetClient.Send("4 " + direction);
             }
             else if(sender == "player2Move")
             {
-                Move(this.player2MazeList, direction, plyr2CurrentNode, player2GenMaze.End);
+                Move(this.player2MazeList, direction, this.plyr2CurrentNode, player2GeneralMaze.End);
             }   
         }
+
+
         /// <summary>
         /// Returns the best move according to algo.
         /// </summary>
@@ -294,16 +294,16 @@ namespace Ex2_Maze
         {
             this.player = this.ser.Deserialize<Player>(multiplayer);
             //Sets the Mazes of my maze and my opponents maze
-            this.myGenMaze = player.You;
-            this.player2GenMaze = player.Other;
+            this.myGeneralMaze = player.You;
+            this.player2GeneralMaze = player.Other;
             myCurrentNode = player.You.Start;
             plyr2CurrentNode = player.Other.Start;
-            //Makes a list from Opponents maze
-            this.player2MazeList = MakeMazeList(player.Other);
-            Publish("Player2Maze");
             //Makes a list from my Maze
-            this.myMazeList = MakeMazeList(player.You);
+            this.myMazeList = MakeMazeList(this.myGeneralMaze);
             Publish("MyMaze");
+            //Makes a list from Opponents maze
+            this.player2MazeList = MakeMazeList(this.player2GeneralMaze);
+            Publish("Player2Maze");
         }
 
 
@@ -336,10 +336,9 @@ namespace Ex2_Maze
         /// into a list which is set to the databinding in the grid </summary>
         public void ConvertGenerate()
         {
-            this.genMaze = this.ser.Deserialize<GeneralMaze<int>>(Generate);
-            this.singlePlayerList = MakeMazeList(this.genMaze);
-            this.singlePlayercurrentNode = this.genMaze.Start;
-            this.endNode = this.genMaze.End;
+            this.myGeneralMaze = this.ser.Deserialize<GeneralMaze<int>>(Generate);
+            this.myMazeList = MakeMazeList(this.myGeneralMaze);
+            this.myCurrentNode = this.myGeneralMaze.Start;
         }
 
 
