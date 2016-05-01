@@ -24,6 +24,9 @@ namespace Ex2_Maze
             };
         }
 
+
+
+
         public void Command(string s)
         {
             model.Send(s);
@@ -60,6 +63,15 @@ namespace Ex2_Maze
         }
 
 
+ 
+
+
+        public void VM_player2Move()
+        {
+            Console.WriteLine("sadasd");
+        }
+
+
         public void PublishEvent(string propName)
         {
             if(PropertyChanged != null)
@@ -93,9 +105,5 @@ namespace Ex2_Maze
             get { return model.Connected; }
         }           
 
-        public void Move(string direction)
-        {
-            //model.Move(direction);
-        }
     }
 }

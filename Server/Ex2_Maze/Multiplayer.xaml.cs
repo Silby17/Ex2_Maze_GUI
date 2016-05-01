@@ -1,9 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace Ex2_Maze
 {
@@ -13,8 +13,9 @@ namespace Ex2_Maze
     public partial class Multiplayer : Window
     {
         ViewModel viewModel;
-        private bool gameInMotion;
-        
+        private bool gameInMotion;     
+             
+
         /// <summary>
         /// Constructor Method that receives the ViewModel</summary>
         /// <param name="vm">The ViewModel of the program</param>
@@ -22,6 +23,7 @@ namespace Ex2_Maze
         {
             this.viewModel = vm;
             this.DataContext = vm;
+            this.viewModel.PropertyChanged += Event;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
@@ -35,6 +37,7 @@ namespace Ex2_Maze
         /// <param name="e">Passed Params</param>
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            //Checks if there is a connection to the server
             if (viewModel.VM_Connected == false)
             {
                 MessageBoxImage icon = MessageBoxImage.Error;
@@ -47,7 +50,7 @@ namespace Ex2_Maze
                     "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
-                    //close window 
+                    this.Close();
                 }
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
@@ -72,11 +75,11 @@ namespace Ex2_Maze
                         Task.Factory.StartNew(() =>
                         {
                             viewModel.Command(gen);
-                            viewModel.model.StartThread();
                         }
                          ).ContinueWith((task) =>
                          {
                              ProgIndicator.IsBusy = false;
+                             viewModel.model.StartThread();
                              InitializeComponent();
                              myMaze.ItemsSource = viewModel.VM_MyMaze;
                              plr2.ItemsSource = viewModel.VM_Player2Maze;
@@ -84,14 +87,15 @@ namespace Ex2_Maze
                          }, TaskScheduler.FromCurrentSynchronizationContext()
             );
                     }
-                    
                 }
             }
-            
         }
 
-
-
+        
+        /// <summary>
+        /// This is the handler for the Return button click</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Do you want to close this window?",
@@ -99,11 +103,14 @@ namespace Ex2_Maze
             if (result == MessageBoxResult.Yes)
             {
                 this.Close();
-
             }
-
         }
 
+
+        /// <summary>
+        /// This handles the suggestion button click</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Suggestion_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.VM_Connected == false)
@@ -114,8 +121,10 @@ namespace Ex2_Maze
             }
             else
             {
+
             }
         }
+
 
         /// <summary>
         /// This will handle any keys pressed on the play window
@@ -141,8 +150,25 @@ namespace Ex2_Maze
             {
                 viewModel.MovePlayer("left", "myMove");
             }
-            myMaze.Items.Refresh();
-            plr2.Items.Refresh();
+            Refresh();
+        }
+
+
+        public void Event(object s, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("VM_Player_Moved"))
+            {
+                Refresh();
+            }
+        }
+
+        public void Refresh()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                myMaze.Items.Refresh();
+                plr2.Items.Refresh();
+            }));
         }
     }
 }

@@ -52,9 +52,9 @@ namespace Ex2_Maze
                 {
                     string playerMove = telnetClient.playerMove;
                     JavaScriptSerializer ser = new JavaScriptSerializer();
-                    Play playe = ser.Deserialize<Play>(playerMove);
-
-                    string sss = "sada";
+                    Ex1_Maze.Play play = ser.Deserialize<Ex1_Maze.Play>(playerMove);
+                    MovePlayer(play.Move, "player2Move");
+                    Publish("Player_Moved");
                 }
             }
         }
@@ -177,7 +177,12 @@ namespace Ex2_Maze
         }
 
 
-
+        /// <summary>
+        /// This method will move the player in the correct maze</summary>
+        /// <param name="maze"></param>
+        /// <param name="direction"></param>
+        /// <param name="currentNode"></param>
+        /// <param name="endNode"></param>
         public void Move(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode)
         {
             //UP
@@ -188,21 +193,24 @@ namespace Ex2_Maze
                 maze[currentNode.Row][currentNode.Col] = 5;
             }
             //DOWN
-            if (direction == "down" && currentNode.Row != this.HEIGHT-1 && maze[currentNode.Row + 1][currentNode.Col] != 1)
+            else if (direction == "down" && currentNode.Row !=
+                this.HEIGHT-1 && maze[currentNode.Row + 1][currentNode.Col] != 1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row + 1;
                 maze[currentNode.Row][currentNode.Col] = 5;
             }
             //RIGHT
-            if (direction == "right" && currentNode.Col != this.WIDTH - 1 && maze[currentNode.Row][currentNode.Col+1] != 1)
+            else if (direction == "right" && currentNode.Col !=
+                this.WIDTH - 1 && maze[currentNode.Row][currentNode.Col+1] != 1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col + 1;
                 maze[currentNode.Row][currentNode.Col] = 5;
             }
             //LEFT
-            if (direction == "left" && currentNode.Col != 0 && maze[currentNode.Row][currentNode.Col-1]!=1)
+            else if (direction == "left" && currentNode.Col != 0 &&
+                maze[currentNode.Row][currentNode.Col-1]!=1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Col = currentNode.Col - 1;
@@ -216,7 +224,8 @@ namespace Ex2_Maze
         }
 
 
-
+        /// <summary>
+        /// This method will convert the maze data for binding in the gui</summary>
         public void ConvertMultiplayerData()
         {
             JavaScriptSerializer ser = new JavaScriptSerializer();
@@ -226,7 +235,6 @@ namespace Ex2_Maze
             this.player2GenMaze = player.Other;
             myCurrentNode = player.You.Start;
             plyr2CurrentNode = player.Other.Start;
-
             //Makes a list from Opponents maze
             this.player2MazeList = MakeMazeList(player.Other);
             Publish("Player2Maze");

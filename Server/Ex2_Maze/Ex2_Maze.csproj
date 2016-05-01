@@ -154,12 +154,7 @@
       <Project>{4b708b7b-734d-4f63-b336-98b571cab780}</Project>
       <Name>Ex1_Maze</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Server\Server.csproj">
-      <Project>{d5e4dd2e-d6dd-4c3f-9a00-d1c5f937d0b1}</Project>
-      <Name>Server</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
