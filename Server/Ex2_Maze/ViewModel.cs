@@ -51,20 +51,16 @@ namespace Ex2_Maze
 
         public string VW_MazeName
         {
-            get { return model.genMaze.Name; }
+            get { return model.myGeneralMaze.Name; }
         }
 
 
         public List<List<int>> VM_Maze
         {
-            get { return model.Maze; }
-        }
-
-
-        public List<List<int>> VM_MyMaze
-        {
             get { return model.myMazeList; }
         }
+
+
 
         public List<List<int>> VM_Player2Maze
         {

@@ -19,8 +19,9 @@ namespace Ex2_Maze
         Boolean Connected { get; set; }
         string Generate { get; set; }
         string Solve { get; set; }
-        List<List<int>> Maze { get; set; }
-        GeneralMaze<int> genMaze { get; set; }
+
+        GeneralMaze<int> myGeneralMaze { get; set; }
+        GeneralMaze<int> player2GeneralMaze { get; set; }
         List<List<int>> myMazeList { get; set; }
         List<List<int>> player2MazeList { get; set; }
 

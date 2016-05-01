@@ -13,7 +13,8 @@ namespace Ex2_Maze
     public partial class Multiplayer : Window
     {
         ViewModel viewModel;
-        private bool gameInMotion;     
+        private bool gameInMotion;
+        public string MazeName;  
              
 
         /// <summary>
@@ -23,13 +24,9 @@ namespace Ex2_Maze
         {
             this.viewModel = vm;
             this.DataContext = vm;
-            
+            this.viewModel.PropertyChanged += Event;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            this.viewModel.PropertyChanged += delegate (object seder, PropertyChangedEventArgs e)
-            {
-                ReceiveEvent(e.PropertyName);
-            };
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
             //MusicPlayer.Play();
         }
@@ -85,7 +82,7 @@ namespace Ex2_Maze
                              ProgIndicator.IsBusy = false;
                              viewModel.model.StartThread();
                              InitializeComponent();
-                             myMaze.ItemsSource = viewModel.VM_MyMaze;
+                             myMaze.ItemsSource = viewModel.VM_Maze;
                              plr2.ItemsSource = viewModel.VM_Player2Maze;
                              gameInMotion = true;
                          }, TaskScheduler.FromCurrentSynchronizationContext()
@@ -158,24 +155,13 @@ namespace Ex2_Maze
         }
 
 
-        /// <summary>
-        /// Event Handler that gets events from the viewModel</summary>
-        /// <param name="eventData">Event Params</param>
-        public void ReceiveEvent(string eventData)
+        public void Event(object s, PropertyChangedEventArgs e)
         {
-            if (eventData.Equals("VM_Player_Moved"))
+            if (e.PropertyName.Equals("VM_Player_Moved"))
             {
                 Refresh();
             }
-            //Event that the player has reached his goal point
-            else if (eventData == "VM_Winner")
-            {
-                MessageBoxImage icon = MessageBoxImage.Information;
-                MessageBox.Show("You have reached the end!", "You Won", MessageBoxButton.OK, icon);
-                this.Close();
-            }
         }
-
 
         public void Refresh()
         {
@@ -191,6 +177,20 @@ namespace Ex2_Maze
         {
             viewModel.model.KillThread();
             this.Close();
+        }
+
+        /// <summary>
+        /// Event Handler that gets events from the viewModel</summary>
+        /// <param name="eventData">Event Params</param>
+        public void ReceiveEvent(string eventData)
+        {
+            //Event that the player has reached his goal point
+            if (eventData == "VM_Winner")
+            {
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show("You have reached the end!", "You Won", MessageBoxButton.OK, icon);
+                this.Close();
+            }
         }
     }
 }

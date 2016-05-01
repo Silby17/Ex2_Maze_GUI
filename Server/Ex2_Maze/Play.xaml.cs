@@ -144,8 +144,8 @@ namespace Ex2_Maze
             {
                 int solveType = rand.Next(0, 2);
                 string solve = "2 " + this.MazeName + " " + solveType.ToString();
-
                 viewModel.Command(solve);
+                lst.Items.Refresh();
             }
         }
 
