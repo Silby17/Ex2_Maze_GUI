@@ -11,7 +11,9 @@ namespace Ex2_Maze
     {
         public event PropertyChangedEventHandler PropertyChanged;
         ITelnetClient telnetClient;
+        JavaScriptSerializer ser;
         public string generate;
+        public string solve;
         public string multiplayer;
         private Boolean connected;
         private Player player;
@@ -20,8 +22,9 @@ namespace Ex2_Maze
         public List<List<int>> player2MazeList { get; set; }
 
         public GeneralMaze<int> myGenMaze { get; set; }
+        public GeneralMaze<int> singlePlayerSolved { get; set; }
         public GeneralMaze<int> player2GenMaze { get; set; }
-        public GeneralMaze<int> genMaze { get; set; }
+        
 
         public JPosition currentNode { get; set; }
         public JPosition myCurrentNode { get; set; }
@@ -29,8 +32,12 @@ namespace Ex2_Maze
         public JPosition endNode { get; set; }
         private int WIDTH;
         private int HEIGHT;
-        
-        
+
+        //Single player Members
+        public GeneralMaze<int> genMaze { get; set; }
+        public List<List<int>> singlePlayerList { get; set; }
+
+
         /// <summary>
         /// Constructor method that will get a new instance of
         /// TelnetClient which will be in charge of communication
@@ -42,6 +49,7 @@ namespace Ex2_Maze
             this.WIDTH = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Width"]);
             this.HEIGHT = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Bredth"]);
             this.telnetClient.PropertyChanged += OnEventHandler;
+            ser = new JavaScriptSerializer();
         }
 
         public void OnEventHandler(object sender, PropertyChangedEventArgs args)
@@ -76,6 +84,11 @@ namespace Ex2_Maze
             telnetClient.StartThread();
         }
 
+        public void KillThread()
+        {
+            telnetClient.KillThread();
+        }
+
        /// <summary>
        /// This method will pass on command to the TelnetClient
        /// to send msg to the Server</summary>
@@ -86,6 +99,11 @@ namespace Ex2_Maze
             {
                 this.telnetClient.Send(toSend);
                 Generate = telnetClient.Read();                
+            }
+            else if(toSend[0].Equals('2'))
+            {
+                this.telnetClient.Send(toSend);
+                Solve = telnetClient.Read();
             }
             else if(toSend[0].Equals('3'))
             {
@@ -129,6 +147,15 @@ namespace Ex2_Maze
             set { generate = value;
                 ConvertGenerate();
                 Publish("Generate"); }
+        }
+
+        public string Solve
+        {
+            get { return solve; }
+            set { solve = value;
+                ConvertSolveString();
+                Publish("Solve");
+            }
         }
 
         public string Multiplay
@@ -228,8 +255,7 @@ namespace Ex2_Maze
         /// This method will convert the maze data for binding in the gui</summary>
         public void ConvertMultiplayerData()
         {
-            JavaScriptSerializer ser = new JavaScriptSerializer();
-            this.player = ser.Deserialize<Player>(multiplayer);
+            this.player = this.ser.Deserialize<Player>(multiplayer);
             //Sets the Mazes of my maze and my opponents maze
             this.myGenMaze = player.You;
             this.player2GenMaze = player.Other;
@@ -273,11 +299,20 @@ namespace Ex2_Maze
         /// into a list which is set to the databinding in the grid </summary>
         public void ConvertGenerate()
         {
-            JavaScriptSerializer ser = new JavaScriptSerializer();
-            this.genMaze = ser.Deserialize<GeneralMaze<int>>(Generate);
+            this.genMaze = this.ser.Deserialize<GeneralMaze<int>>(Generate);
             this.mazeList = MakeMazeList(this.genMaze);
             this.currentNode = this.genMaze.Start;
             this.endNode = this.genMaze.End;
         }
-    }
+
+
+        /// <summary>
+        /// This will convert the received solved Maze into a General Maze
+        /// </summary>
+        public void ConvertSolveString()
+        {
+            this.singlePlayerSolved = this.ser.Deserialize<GeneralMaze<int>>(Solve);
+            this.singlePlayerList = MakeMazeList(this.singlePlayerSolved);
+        }
+}
 }

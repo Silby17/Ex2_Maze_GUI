@@ -52,8 +52,12 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Event Handler that gets events from the viewModel</summary>
+        /// <param name="eventData">Event Params</param>
         public void ReceiveEvent(string eventData)
         {
+            //Event that the player has reached his goal point
             if(eventData == "VM_Winner")
             {
                 MessageBoxImage icon = MessageBoxImage.Information;
@@ -63,12 +67,18 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Start Button Click handler</summary>
+        /// <param name="sender">Sender of the button click</param>
+        /// <param name="e">params of the click</param>
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            //Checks if there is a connection to the server
             if (viewModel.VM_Connected == false)
             {
                 MessageBoxImage icon = MessageBoxImage.Error;
-                MessageBox.Show("No Connection with Server", "Connection Error", MessageBoxButton.OK, icon);
+                MessageBox.Show("No Connection with Server", "Connection Error",
+                    MessageBoxButton.OK, icon);
             }
             else
             {
@@ -90,6 +100,7 @@ namespace Ex2_Maze
                     this.MazeName = gen;
                     viewModel.Command(gen);
                     InitializeComponent();
+                    this.MazeName = viewModel.VW_MazeName;
                     lst.ItemsSource = viewModel.VM_Maze;
                 }
             }
@@ -128,6 +139,13 @@ namespace Ex2_Maze
                 MessageBoxImage icon = MessageBoxImage.Error;
                 MessageBox.Show("No Maze Loaded", "Maze Error",
                     MessageBoxButton.OK, icon);
+            }
+            else
+            {
+                int solveType = rand.Next(0, 2);
+                string solve = "2 " + this.MazeName + " " + solveType.ToString();
+
+                viewModel.Command(solve);
             }
         }
 

@@ -14,9 +14,11 @@ namespace Ex2_Maze
         void Send(string str);
         void MovePlayer(string direction, string sender);
         void StartThread();
+        void KillThread();
 
         Boolean Connected { get; set; }
         string Generate { get; set; }
+        string Solve { get; set; }
         List<List<int>> Maze { get; set; }
         GeneralMaze<int> genMaze { get; set; }
         List<List<int>> myMazeList { get; set; }

@@ -50,14 +50,14 @@ namespace Ex2_Maze
                     "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
-                    this.Close();
+                    CloseWindow();
                 }
                 //TODO to reload the window
                 else if (result == MessageBoxResult.Yes)
                 {
                     if(gameInMotion == true)
                     {
-                        this.Close();
+                        CloseWindow();
                     }
                     else if (txtbMaze.Text == "")
                     {
@@ -102,7 +102,7 @@ namespace Ex2_Maze
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                this.Close();
+                CloseWindow();
             }
         }
 
@@ -169,6 +169,13 @@ namespace Ex2_Maze
                 myMaze.Items.Refresh();
                 plr2.Items.Refresh();
             }));
+        }
+
+
+        public void CloseWindow()
+        {
+            viewModel.model.KillThread();
+            this.Close();
         }
     }
 }
