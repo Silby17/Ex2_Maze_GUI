@@ -23,9 +23,13 @@ namespace Ex2_Maze
         {
             this.viewModel = vm;
             this.DataContext = vm;
-            this.viewModel.PropertyChanged += Event;
+            
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            this.viewModel.PropertyChanged += delegate (object seder, PropertyChangedEventArgs e)
+            {
+                ReceiveEvent(e.PropertyName);
+            };
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
             //MusicPlayer.Play();
         }
@@ -154,13 +158,24 @@ namespace Ex2_Maze
         }
 
 
-        public void Event(object s, PropertyChangedEventArgs e)
+        /// <summary>
+        /// Event Handler that gets events from the viewModel</summary>
+        /// <param name="eventData">Event Params</param>
+        public void ReceiveEvent(string eventData)
         {
-            if (e.PropertyName.Equals("VM_Player_Moved"))
+            if (eventData.Equals("VM_Player_Moved"))
             {
                 Refresh();
             }
+            //Event that the player has reached his goal point
+            else if (eventData == "VM_Winner")
+            {
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show("You have reached the end!", "You Won", MessageBoxButton.OK, icon);
+                this.Close();
+            }
         }
+
 
         public void Refresh()
         {
