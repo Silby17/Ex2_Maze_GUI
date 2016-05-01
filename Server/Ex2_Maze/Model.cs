@@ -5,6 +5,7 @@ using Ex1_Maze;
 using System;
 
 
+
 namespace Ex2_Maze
 {
     public class Model : IMazeModel
@@ -174,6 +175,41 @@ namespace Ex2_Maze
             {
                 Move(this.player2MazeList, direction, plyr2CurrentNode, player2GenMaze.End);
             }   
+        }
+        /// <summary>
+        /// Returns the best move according to algo.
+        /// </summary>
+        /// <param name="maze"></param>
+        /// <param name="direction"></param>
+        /// <param name="currentNode"></param>
+        /// <param name="endNode"></param>
+        /// <returns></returns>
+        public JPosition GetBestMove(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode)
+        {
+            JPosition ans = null;
+            //the longest disctance that could be
+            double minDis = Math.Pow(HEIGHT*HEIGHT + WIDTH*WIDTH, 0.5);
+            for (int i = 0; i < this.WIDTH; i++)
+            {
+                for (int j = 0; j < this.HEIGHT; j++)
+                {   //check the min distance to the path
+                   if(2 == maze[i][j])
+                    {
+                        //compute distance to "2"
+                       double DisI = Math.Pow(i - currentNode.Row, 2);
+                       double DisJ = Math.Pow(j - currentNode.Col, 2);
+                       double Dis = Math.Pow(DisI + DisJ, 0.5);
+                        //check if dis is lower than minDis
+                        if(Dis < minDis)
+                        {
+                            minDis = Dis;
+                            //ans is the closest
+                            ans = new JPosition(i,j);
+                        }
+                    }
+                }
+            }
+            return ans;
         }
 
 
