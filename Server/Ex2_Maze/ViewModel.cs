@@ -43,7 +43,16 @@ namespace Ex2_Maze
             get { return model.Generate; }
         }
 
+        public string VW_Solve
+        {
+            get { return model.Solve; }
+        }
 
+
+        public string VW_MazeName
+        {
+            get { return model.genMaze.Name; }
+        }
 
 
         public List<List<int>> VM_Maze

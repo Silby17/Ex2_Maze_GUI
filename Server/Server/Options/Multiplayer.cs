@@ -53,19 +53,18 @@ namespace Server.Options
                         g.CreateSecondMaze();
                         player.SetPlayerMaze(g.GetPlayer2Maze());
                         player.MazeName = player.GetPlayerMaze().Name;
-                        //string you = ser.Serialize(player.GetPlayerMaze());
                         player.You = player.GetPlayerMaze();
                         player.Other = games[0].playersList[0].GetPlayerMaze();
-                        //player.You = JToken.Parse(you).ToString();
-                        //string other = ser.Serialize(games[0].playersList[0].GetPlayerMaze());
-                        //player.Other = JToken.Parse(other).ToString();
                         games[0].playersList[0].Other = player.GetPlayerMaze();
                         g.SetPlayers();
                         PublishEvent();                        
                     }
                     else
                     //The current Game doesnt Exist
-                    {CreateNewGame(gameName, player); }
+                    {
+                        CreateNewGame(gameName, player);
+                        break;
+                    }
                 }
             }
             //Create a new Game if the game doesnt Exist
