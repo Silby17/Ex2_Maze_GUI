@@ -1,9 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows;
+using System;
+
 
 namespace Ex2_Maze
 {
@@ -24,7 +24,7 @@ namespace Ex2_Maze
         {
             this.viewModel = vm;
             this.DataContext = vm;
-            this.viewModel.PropertyChanged += Event;
+            this.viewModel.PropertyChanged += ReceiveEvent ;
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
             //SoundPlayer MusicPlayer = new System.Media.SoundPlayer(@"C:\Users\Nava\Source\Repos\Ex2_Maze_GUI\Server\Ex2_Maze\sovtoda.wav");
@@ -155,14 +155,10 @@ namespace Ex2_Maze
         }
 
 
-        public void Event(object s, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName.Equals("VM_Player_Moved"))
-            {
-                Refresh();
-            }
-        }
 
+        /// <summary>
+        /// This Method will refresh the data of the binding
+        /// that is being displayed on the GUI</summary>
         public void Refresh()
         {
             this.Dispatcher.Invoke((Action)(() =>
@@ -173,24 +169,42 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// This method will be called when the 
+        /// multiplayer window needs to be closed</summary>
         public void CloseWindow()
         {
             viewModel.model.KillThread();
-            this.Close();
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                this.Close();
+            }));
         }
+
 
         /// <summary>
         /// Event Handler that gets events from the viewModel</summary>
         /// <param name="eventData">Event Params</param>
-        public void ReceiveEvent(string eventData)
+        public void ReceiveEvent(object s, PropertyChangedEventArgs e)
         {
             //Event that the player has reached his goal point
-            if (eventData == "VM_Winner")
+            if (e.PropertyName.Equals("VM_Winner"))
             {
                 MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBox.Show("You have reached the end!", "You Won", MessageBoxButton.OK, icon);
-                this.Close();
+                CloseWindow();
             }
+            else if(e.PropertyName.Equals("VM_P2_Winner"))
+            {
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show("Player 2 beat you to the end", "You Lose", MessageBoxButton.OK, icon);
+                CloseWindow();
+            }
+            else if (e.PropertyName.Equals("VM_Player_Moved"))
+            {
+                Refresh();
+            }
+
         }
     }
 }

@@ -120,9 +120,7 @@ namespace Ex2_Maze
         /// Send request to TelnetClient to disconnect from the server
         /// </summary>
         public void Disconnect()
-        {
-            this.telnetClient.Disconnect();
-        }
+        { this.telnetClient.Disconnect(); }
 
 
 
@@ -190,55 +188,21 @@ namespace Ex2_Maze
         {
             if(sender == "play")
             {
-                Move(myMazeList, direction, myCurrentNode, myGeneralMaze.End);
+                Move(myMazeList, direction, myCurrentNode, myGeneralMaze.End, "myMove");
             }
             else if(sender == "myMove")
             {
-                Move(this.myMazeList, direction, myCurrentNode, this.myGeneralMaze.End);
+                Move(this.myMazeList, direction, myCurrentNode, this.myGeneralMaze.End, "myMove");
                 telnetClient.Send("4 " + direction);
             }
             else if(sender == "player2Move")
             {
-                Move(this.player2MazeList, direction, this.plyr2CurrentNode, player2GeneralMaze.End);
+                Move(this.player2MazeList, direction, this.plyr2CurrentNode, player2GeneralMaze.End, "otherMovie");
             }   
         }
 
 
-        /// <summary>
-        /// Returns the best move according to algo.
-        /// </summary>
-        /// <param name="maze"></param>
-        /// <param name="direction"></param>
-        /// <param name="currentNode"></param>
-        /// <param name="endNode"></param>
-        /// <returns></returns>
-        public JPosition GetBestMove(List<List<int>> maze, JPosition currentNode)
-        {
-            JPosition ans = null;
-            //the longest disctance that could be
-            double minDis = Math.Pow(HEIGHT*HEIGHT + WIDTH*WIDTH, 0.5);
-            for (int i = 0; i < this.WIDTH; i++)
-            {
-                for (int j = 0; j < this.HEIGHT; j++)
-                {   //check the min distance to the path
-                   if(2 == maze[i][j])
-                    {
-                        //compute distance to "2"
-                       double DisI = Math.Pow(i - currentNode.Row, 2);
-                       double DisJ = Math.Pow(j - currentNode.Col, 2);
-                       double Dis = Math.Pow(DisI + DisJ, 0.5);
-                        //check if dis is lower than minDis
-                        if(Dis < minDis)
-                        {
-                            minDis = Dis;
-                            //ans is the closest
-                            ans = new JPosition(i,j);
-                        }
-                    }
-                }
-            }
-            return ans;
-        }
+        
 
 
         /// <summary>
@@ -247,7 +211,7 @@ namespace Ex2_Maze
         /// <param name="direction"></param>
         /// <param name="currentNode"></param>
         /// <param name="endNode"></param>
-        public void Move(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode)
+        public void Move(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode, string sender)
         {
             //UP
             if(direction == "up" && currentNode.Row != 0 && maze[currentNode.Row-1][currentNode.Col] != 1)
@@ -283,7 +247,12 @@ namespace Ex2_Maze
             }
             if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
             {
-                Publish("Winner");
+                if(sender == "myMove")
+                {
+                    Publish("Winner");
+                }
+                else { Publish("P2_Winner"); }
+                
             }
         }
 
@@ -350,5 +319,43 @@ namespace Ex2_Maze
             this.singlePlayerSolved = this.ser.Deserialize<GeneralMaze<int>>(Solve);
             this.singlePlayerSolvedList = MakeMazeList(this.singlePlayerSolved);
         }
-}
+
+
+
+        /// <summary>
+        /// Returns the best move according to algo.
+        /// </summary>
+        /// <param name="maze"></param>
+        /// <param name="direction"></param>
+        /// <param name="currentNode"></param>
+        /// <param name="endNode"></param>
+        /// <returns></returns>
+        public JPosition GetBestMove(List<List<int>> maze, JPosition currentNode)
+        {
+            JPosition ans = null;
+            //the longest disctance that could be
+            double minDis = Math.Pow(HEIGHT * HEIGHT + WIDTH * WIDTH, 0.5);
+            for (int i = 0; i < this.WIDTH; i++)
+            {
+                for (int j = 0; j < this.HEIGHT; j++)
+                {   //check the min distance to the path
+                    if (2 == maze[i][j])
+                    {
+                        //compute distance to "2"
+                        double DisI = Math.Pow(i - currentNode.Row, 2);
+                        double DisJ = Math.Pow(j - currentNode.Col, 2);
+                        double Dis = Math.Pow(DisI + DisJ, 0.5);
+                        //check if dis is lower than minDis
+                        if (Dis < minDis)
+                        {
+                            minDis = Dis;
+                            //ans is the closest
+                            ans = new JPosition(i, j);
+                        }
+                    }
+                }
+            }
+            return ans;
+        }
+    }
 }
