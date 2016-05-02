@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Title="Multiplayer" Height="1000" Width="1500">
 
+
     <Window.Resources>
         <ImageBrush x:Key="redMan" ImageSource="redMan.png"/>
         <ImageBrush x:Key="runMan" ImageSource="runMan.png"/>
@@ -30,8 +31,9 @@
                     <Setter TargetName="Background" Property="Background" Value="Red"/>
                     <Setter TargetName="Background" Property="Content" Value=" "/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding}" Value="7">
-                    <Setter TargetName="Background" Property="Background" Value="{StaticResource runMan}"/>
+                <DataTrigger Binding="{Binding}" Value="4">
+                    <Setter TargetName="Background" Property="Background" Value="Yellow"/>
+                    <Setter TargetName="Background" Property="Content" Value=" "/>
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
