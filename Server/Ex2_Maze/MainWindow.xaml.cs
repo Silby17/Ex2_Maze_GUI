@@ -1,16 +1,5 @@
 ﻿using System.Windows;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Media;
 using System.IO;
 
@@ -32,12 +21,10 @@ namespace Ex2_Maze
             InitializeComponent();
             DataContext = viewModel;
             //Finds the path of the song and plays it
-            /**
             string fileName = "Krewella - Enjoy_The_Ride.wav";
             string path = System.IO.Path.Combine(Environment.CurrentDirectory, fileName);
             SoundPlayer MusicPlayer = new SoundPlayer(path);
             MusicPlayer.Play();
-            **/
         }
 
 
