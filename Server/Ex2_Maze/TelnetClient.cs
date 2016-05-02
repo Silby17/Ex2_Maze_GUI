@@ -1,9 +1,10 @@
-﻿using System.Threading;
+﻿using System.ComponentModel;
+using System.Threading;
 using System.Net.Sockets;
 using System.Text;
 using System.Net;
 using System;
-using System.ComponentModel;
+
 
 namespace Ex2_Maze
 {
@@ -16,16 +17,15 @@ namespace Ex2_Maze
         private IPEndPoint ipep;
         public string generated { get; set; }
         public Boolean Connected { get; set; }
-        public string playerMove { get; set; }
+        public string fromServer { get; set; }
         private Thread rece;
         private bool runThread;
         
 
-
+        /// <summary>
+        /// Constructor Method</summary>
         public TelnetClient()
-        {
-            this.Connected = false;
-        }
+        {this.Connected = false;}
 
 
         /// <summary>
@@ -37,7 +37,8 @@ namespace Ex2_Maze
             this.PORT = port;
             this.IP = IPAddress.Parse(ip);
             this.ipep = new IPEndPoint(IP, PORT);
-            this.server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.server = new Socket(AddressFamily.InterNetwork,
+                SocketType.Stream, ProtocolType.Tcp);
             //Try to connect to the server
             try
             {
@@ -47,10 +48,12 @@ namespace Ex2_Maze
                 Read();
             }
             catch (SocketException e) { Console.WriteLine("Unable to connect to server." + e.ToString()); }
-
-            
         }
 
+
+        /// <summary>
+        /// Event Publisher Method</summary>
+        /// <param name="propName">Message to Publish</param>
         public void Publish(string propName)
         {
             if (this.PropertyChanged != null)
@@ -60,6 +63,9 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Start Thread that will constanatly Receive from the Server
+        /// </summary>
         public void StartThread()
         {
             runThread = true;
@@ -67,10 +73,13 @@ namespace Ex2_Maze
             rece.Start();
         }
 
+
+        /// <summary>
+        /// Method that will kill the thread
+        /// </summary>
         public void KillThread()
-        {
-            runThread = false;
-        }
+        {runThread = false;}
+
 
         /// <summary>
         /// This will send data to the Server </summary>
@@ -109,11 +118,11 @@ namespace Ex2_Maze
         {
             while (runThread)
             {
-                    byte[] data = new byte[1024];
-                    int recv = server.Receive(data);
-                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
-                    playerMove = stringData;
-                    Publish("Player_Moved");
+                byte[] data = new byte[1024];
+                int recv = server.Receive(data);
+                string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                this.fromServer = stringData;
+                Publish("New_Server_Data");
             }
         }
 
