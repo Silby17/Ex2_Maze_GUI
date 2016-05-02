@@ -87,22 +87,12 @@ namespace Ex2_Maze
                 //Show confirmation Message
                 MessageBoxResult result = MessageBox.Show("Do you want to start a new game?",
                     "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.No)
-                {
-                    string gen = "1 " + MazeName + " 1";
-                    viewModel.Command(gen);
-                    InitializeComponent();
-                    lst.ItemsSource = viewModel.VM_Maze;
-                }
-                else if (result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
                 {
                     String gen = "1 Maze";
                     this.rand = new Random();
                     string num = (rand.Next(0, 30)).ToString();
-                    gen += num += " ";
-                    //Chose a random Algo to Generate Maze
-                    int type = rand.Next(0, 2);
-                    gen += type.ToString();
+                    gen += num += " " + "0";                    
                     //Send Generate Command to the server
                     viewModel.Command(gen);
                     InitializeComponent();
@@ -114,6 +104,29 @@ namespace Ex2_Maze
             }
         }
         
+        private void Restart_Click(object sender, RoutedEventArgs e)
+        {
+            if(viewModel.VM_Connected == false)
+            {
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show("No Connection with Server", "Connection Error",
+                    MessageBoxButton.OK, icon);
+            }
+            else if(!GameStarted)
+            {
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show("No Game has been started", "Game Error",
+                    MessageBoxButton.OK, icon);
+            }
+            else
+            {
+                string gen = "1 " + MazeName + " 1";
+                viewModel.Command(gen);
+                InitializeComponent();
+                lst.ItemsSource = viewModel.VM_Maze;
+            }
+        }
+
 
         /// <summary>
         /// OnClick handler for for the Exit button</summary>
