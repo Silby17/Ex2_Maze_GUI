@@ -1,9 +1,9 @@
 ﻿using System.Web.Script.Serialization;
 using System.Collections.Generic;
-using System;
 using System.Net.Sockets;
 using Ex1_Maze;
-using Newtonsoft.Json.Linq;
+using System;
+
 
 namespace Server.Options
 {
@@ -44,14 +44,14 @@ namespace Server.Options
             {
                 foreach(Game g in games)
                 {
-                    if(g.GetGameName() == gameName)
+                    //The Game already Exists in the list of games
+                    if (g.GetGameName() == gameName)
                     {
-                        //The Game already Exists in the list of games
-
                         //Adds new player to the game
                         g.AssignPlayerToGame(player);
                         g.CreateSecondMaze();
                         player.SetPlayerMaze(g.GetPlayer2Maze());
+                        mazeList.Add(g.GetPlayer2Maze().Name, g.GetPlayer2Maze());
                         player.MazeName = player.GetPlayerMaze().Name;
                         player.You = player.GetPlayerMaze();
                         player.Other = games[0].playersList[0].GetPlayerMaze();
@@ -63,7 +63,7 @@ namespace Server.Options
                     //The current Game doesnt Exist
                     {
                         CreateNewGame(gameName, player);
-                        break;
+                        return;
                     }
                 }
             }

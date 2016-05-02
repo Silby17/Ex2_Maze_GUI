@@ -34,9 +34,19 @@ namespace Server.Options
             this.mazeName = name;
             if(mazeList.ContainsKey(name))
             {
-                mazeList.Remove(name);
+                GeneralMaze<int> temp;
+                mazeList.TryGetValue(name, out temp);
+                this.gMa = temp;
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                string jsonMaze = ser.Serialize(temp);
+                jsonMaze = JToken.Parse(jsonMaze).ToString();
+                this.JSONMaze = jsonMaze;
+                PublishEvent();
             }
-            GenerateMaze(name, type);
+            else
+            {
+                GenerateMaze(name, type);
+            }
         }
 
 
