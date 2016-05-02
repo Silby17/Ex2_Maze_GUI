@@ -17,7 +17,7 @@ namespace Ex2_Maze
         void StartThread();
         void KillThread();
 
-        string playerMove { get; set; }
+        string fromServer { get; set; }
         Boolean Connected { get; set; }
     }
 }
