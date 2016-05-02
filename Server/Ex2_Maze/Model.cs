@@ -10,6 +10,7 @@ namespace Ex2_Maze
     public class Model : IMazeModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public bool MultiplayerGameinProgress;
         ITelnetClient telnetClient;
         JavaScriptSerializer ser;
         private int WIDTH;
@@ -19,6 +20,7 @@ namespace Ex2_Maze
         public string multiplayer;
         private Boolean connected;
         private Player player;
+        
 
         //My General Maze and its List version
         public GeneralMaze<int> myGeneralMaze { get; set; }
@@ -29,14 +31,11 @@ namespace Ex2_Maze
         public GeneralMaze<int> player2GeneralMaze { get; set; }
         public List<List<int>> player2MazeList { get; set; }
         public JPosition plyr2CurrentNode { get; set; }
-
-
-        public GeneralMaze<int> singlePlayerSolved { get; set; }
-        public List<List<int>> singlePlayerSolvedList { get; set; }
-
-           
-
-
+        
+        public GeneralMaze<int> mySolvedGeneralMaze { get; set; }
+        public List<List<int>> mySolvedMazeList { get; set; }
+                 
+        
         /// <summary>
         /// Constructor method that will get a new instance of
         /// TelnetClient which will be in charge of communication
@@ -45,26 +44,45 @@ namespace Ex2_Maze
         public Model(ITelnetClient telnetClient)
         {
             this.telnetClient = telnetClient;
+            //Sets the maze size from the AppConfig file
             this.WIDTH = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Width"]);
             this.HEIGHT = Int32.Parse(System.Configuration.ConfigurationManager.AppSettings["Bredth"]);
             this.telnetClient.PropertyChanged += OnEventHandler;
             ser = new JavaScriptSerializer();
         }
 
+
+        /// <summary>
+        /// Event Handler that will handle all events that the Model
+        /// receives from its Publishers </summary>
+        /// <param name="sender">Publisher</param>
+        /// <param name="args">Published parameters</param>
         public void OnEventHandler(object sender, PropertyChangedEventArgs args)
         {
-            if(sender is TelnetClient)
+            if (sender is TelnetClient)
             {
-                if (args.PropertyName.Equals("Player_Moved"))
+                //Read the string that the server sent
+                string fromServer = telnetClient.fromServer;
+                //Checks if the data from the server is a move of the other player
+                if(fromServer.Contains("Move"))
                 {
-                    string playerMove = telnetClient.playerMove;
-                    JavaScriptSerializer ser = new JavaScriptSerializer();
-                    Ex1_Maze.Play play = ser.Deserialize<Ex1_Maze.Play>(playerMove);
+                    Ex1_Maze.Play play = ser.Deserialize<Ex1_Maze.Play>(fromServer);
                     MovePlayer(play.Move, "player2Move");
                     Publish("Player_Moved");
                 }
+                //Else checks if the data is in the form of a general Maze which
+                //Is the solved maze received from chosing optioon 2.
+                else if(fromServer.Contains("Name") && fromServer.Contains("Maze"))
+                {
+                    this.mySolvedGeneralMaze = ser.Deserialize<GeneralMaze<int>>(fromServer);
+                    this.mySolvedMazeList = MakeMazeList(mySolvedGeneralMaze);
+                    JPosition ans = GetBestMove(mySolvedMazeList, myCurrentNode);
+                    this.myMazeList[ans.Row][ans.Col] = 4;
+                    Publish("SuggestionReceived");
+                }
             }
         }
+
 
         /// <summary>
         /// This will send params to the TelnetClinet 
@@ -78,15 +96,20 @@ namespace Ex2_Maze
         }
 
 
+        /// <summary>
+        /// Starts the running of the Thread that will
+        /// constantly be waiting for input from the server
+        /// </summary>
         public void StartThread()
-        {
-            telnetClient.StartThread();
-        }
+        { telnetClient.StartThread();}
 
+
+        /// <summary>
+        /// Kills the thread that is constantly listening 
+        /// for input from the server</summary>
         public void KillThread()
-        {
-            telnetClient.KillThread();
-        }
+        { telnetClient.KillThread(); }
+
 
        /// <summary>
        /// This method will pass on command to the TelnetClient
@@ -94,22 +117,39 @@ namespace Ex2_Maze
        /// <param name="toSend">message to send</param>
         public void Send(string toSend)
         {
+            //1 - Generate new Maze
             if(toSend[0].Equals('1'))
             {
+                //Send request
                 this.telnetClient.Send(toSend);
+                //Get the generated Maze from Server
                 Generate = telnetClient.Read();                
             }
+            //2 - Solve Maze
             else if(toSend[0].Equals('2'))
             {
+                //Send the request to the server
                 this.telnetClient.Send(toSend);
-                Solve = telnetClient.Read();
+                if(!MultiplayerGameinProgress)
+                {
+                    //If we in single player mode then get the
+                    //solved maze immediatly
+                    Solve = telnetClient.Read();
+                }   
             }
-            else if(toSend[0].Equals('3'))
+            //3 - Multiplayer
+            else if (toSend[0].Equals('3'))
             {
                 this.telnetClient.Send(toSend);
                 Multiplay = telnetClient.Read();
             }
+            //4 - Play
             else if(toSend[0].Equals('4'))
+            {
+                this.telnetClient.Send(toSend);
+            }
+            //5 - Close the Game
+            else if(toSend[0].Equals('5'))
             {
                 this.telnetClient.Send(toSend);
             }
@@ -122,8 +162,7 @@ namespace Ex2_Maze
         public void Disconnect()
         { this.telnetClient.Disconnect(); }
 
-
-
+        
         /// <summary>
         /// Publish event change to all the subscribers </summary>
         /// <param name="propName">property name that was changed</param>
@@ -146,25 +185,38 @@ namespace Ex2_Maze
                 Publish("Generate"); }
         }
 
+
+        /// <summary>
+        /// Solved maze in string Form
+        /// </summary>
         public string Solve
         {
             get { return solve; }
             set { solve = value;
                 ConvertSolveString();
-                JPosition ans = GetBestMove(this.singlePlayerSolvedList, this.myCurrentNode);
+                //Gets the node where the next move should be
+                JPosition ans = GetBestMove(this.mySolvedMazeList, this.myCurrentNode);
+                //Sets the suggestion position to 4
                 myMazeList[ans.Row][ans.Col] = 4;
             }
         }
 
+
+        /// <summary>
+        /// Multiplay Property</summary>
         public string Multiplay
         {
             get { return multiplayer; }
             set { multiplayer = value;
                 ConvertMultiplayerData();
+                MultiplayerGameinProgress = true;
                 Publish("Multiplayer");
             }
         }
 
+
+        /// <summary>
+        /// Connected Boolean</summary>
         public Boolean Connected
         {
             get { return connected; }
@@ -173,7 +225,9 @@ namespace Ex2_Maze
             }
         }
 
-
+        /// <summary>
+        /// Holds the Maze
+        /// </summary>
         public List<List<int>> Maze
         {
             get { return myMazeList; }
@@ -181,30 +235,37 @@ namespace Ex2_Maze
                 Publish("Maze");
             }
         }
+        
 
-
-
+        /// <summary>
+        /// This method will send the correct details to move the player.
+        /// </summary>
+        /// <param name="direction">Which direction to move in</param>
+        /// <param name="sender">Who wants to make the move</param>
         public void MovePlayer(string direction, string sender)
         {
+            //Single PLayer sending the move request
             if(sender == "play")
             {
-                Move(myMazeList, direction, myCurrentNode, myGeneralMaze.End, "myMove");
+                Move(myMazeList, direction, myCurrentNode,
+                    myGeneralMaze.End, "myMove");
             }
+            //MyMove in Multiplayer Game
             else if(sender == "myMove")
             {
-                Move(this.myMazeList, direction, myCurrentNode, this.myGeneralMaze.End, "myMove");
+                Move(this.myMazeList, direction, myCurrentNode,
+                    this.myGeneralMaze.End, "myMove");
                 telnetClient.Send("4 " + direction);
             }
+            //Move of the opponent
             else if(sender == "player2Move")
             {
-                Move(this.player2MazeList, direction, this.plyr2CurrentNode, player2GeneralMaze.End, "otherMovie");
+                Move(this.player2MazeList, direction, this.plyr2CurrentNode,
+                    player2GeneralMaze.End, "otherMovie");
             }   
         }
 
-
-        
-
-
+                
         /// <summary>
         /// This method will move the player in the correct maze</summary>
         /// <param name="maze"></param>
@@ -214,7 +275,8 @@ namespace Ex2_Maze
         public void Move(List<List<int>> maze, string direction, JPosition currentNode, JPosition endNode, string sender)
         {
             //UP
-            if(direction == "up" && currentNode.Row != 0 && maze[currentNode.Row-1][currentNode.Col] != 1)
+            if(direction == "up" && currentNode.Row != 0 &&
+                maze[currentNode.Row-1][currentNode.Col] != 1)
             {
                 maze[currentNode.Row][currentNode.Col] = 0;
                 currentNode.Row = currentNode.Row - 1;
@@ -245,14 +307,16 @@ namespace Ex2_Maze
                 maze[currentNode.Row][currentNode.Col] = 5;
                 
             }
+            //Checks if the player has reached their End Point
             if (currentNode.Row == endNode.Row && currentNode.Col == endNode.Col)
             {
+                //If the player is my Move
                 if(sender == "myMove")
                 {
                     Publish("Winner");
                 }
+                //Or if the player that reached the goal is the opponent
                 else { Publish("P2_Winner"); }
-                
             }
         }
 
@@ -276,7 +340,11 @@ namespace Ex2_Maze
         }
 
 
-
+        /// <summary>
+        /// This method converts a generalMaze into a 2D List
+        /// </summary>
+        /// <param name="maze">maze to convert</param>
+        /// <returns>2D List</returns>
         public List<List<int>> MakeMazeList(GeneralMaze<int> maze)
         {
             List<List<int>> list = new List<List<int>>();
@@ -316,8 +384,8 @@ namespace Ex2_Maze
         /// </summary>
         public void ConvertSolveString()
         {
-            this.singlePlayerSolved = this.ser.Deserialize<GeneralMaze<int>>(Solve);
-            this.singlePlayerSolvedList = MakeMazeList(this.singlePlayerSolved);
+            this.mySolvedGeneralMaze = this.ser.Deserialize<GeneralMaze<int>>(Solve);
+            this.mySolvedMazeList = MakeMazeList(this.mySolvedGeneralMaze);
         }
 
 
@@ -349,7 +417,7 @@ namespace Ex2_Maze
                         if (Dis < minDis)
                         {
                             minDis = Dis;
-                            //ans is the closest
+                            //Answer of the Closest Node
                             ans = new JPosition(i, j);
                         }
                     }
