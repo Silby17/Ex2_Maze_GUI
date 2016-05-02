@@ -90,9 +90,12 @@ namespace Server
                 Options.Generate g1 = (Options.Generate)source;
                 this.dataFromModel = g1.GetJSON();
                 Socket clientToSendTo = g1.GetClientSocket();
-                this.MazeList.Add(g1.GetMazeName(), g1.GetGmaze());
+                if(!this.MazeList.ContainsKey(g1.GetMazeName()))
+                {
+                    this.MazeList.Add(g1.GetMazeName(), g1.GetGmaze());
+                    counter++;
+                }
                 SendToClient(this.dataFromModel, clientToSendTo);
-                counter++;
             }
             else if (source is Options.Solve)
             {
