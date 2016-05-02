@@ -89,7 +89,10 @@ namespace Ex2_Maze
                     "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.No)
                 {
-                    //Start game from the begining
+                    string gen = "1 " + MazeName + " 1";
+                    viewModel.Command(gen);
+                    InitializeComponent();
+                    lst.ItemsSource = viewModel.VM_Maze;
                 }
                 else if (result == MessageBoxResult.Yes)
                 {
@@ -122,7 +125,6 @@ namespace Ex2_Maze
                 "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                //this.MusicPlayer.Stop();
                 this.Close();}
         }
 
