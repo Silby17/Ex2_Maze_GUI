@@ -34,6 +34,7 @@ namespace Server.Options
 
             //Gets the name of the Game
             string gameName = (string)args[1];
+            gameName = gameName.TrimEnd('\r', '\n');
 
             player.Name = gameName;
             //Converts the List of games from type object
